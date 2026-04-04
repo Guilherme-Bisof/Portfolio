@@ -1,5 +1,5 @@
 node_modules
-.http
+api.http
 .env
 
 /generated/prisma
