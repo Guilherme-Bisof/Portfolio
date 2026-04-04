@@ -196,7 +196,7 @@ MIT
 
 ## 👤 Autor
 
-Desenvolvido com ❤️ por Guilherme
+Desenvolvido por Guilherme
 
 ---
 
