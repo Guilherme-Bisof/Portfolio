@@ -19,8 +19,8 @@ export default function RootLayout({ children }) {
       <body className={`${robotoMono.className} bg-black overflow-y-auto no-scrollbar`} suppressHydrationWarning={true}>
         <AuthProvider>
           <Navbar />
-          {/* Esta div é o container do conteúdo principal */}
-          {/* ml-64: Margem à esquerda de 256px (a mesma largura da sidebar) */}
+          {}
+          {}
           <div className="ml-64">
             {children}
           </div>
