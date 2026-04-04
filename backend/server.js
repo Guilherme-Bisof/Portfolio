@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const prisma = new PrismaClient();
 
-// Configurar multer para upload de arquivos
+// Configurar multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "../public/uploads"));
@@ -37,7 +37,7 @@ app.use(
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public")));
 
-// Middleware para verificar o token JWT
+// Middleware para verificar JWT
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -50,7 +50,7 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-// --- ROTAS PÚBLICAS ---
+// ROTAS PÚBLICAS 
 
 app.get("/", (req, res) => {
   res.send("Olá! A API do portfólio está no ar!");
@@ -71,8 +71,7 @@ app.post("/contact", (req, res) => {
   }
 });
 
-// ROTA PÚBLICA PARA LER (READ) TODOS OS PROJETOS
-// VAMOS GARANTIR QUE ELA ESTEJA AQUI E CORRETA
+// ROTA PÚBLICA PARA LER PROJETOS
 app.get("/projects", async (req, res) => {
   try {
     const projects = await prisma.project.findMany({
@@ -101,10 +100,9 @@ app.get("/projects/:id", async (req, res) => {
   }
 });
 
-// --- ROTAS DE AUTENTICAÇÃO ---
+//  ROTAS DE AUTENTICAÇÃO 
 
 app.post("/api/register", async (req, res) => {
-  // ... (código da rota de registro que já fizemos)
   try {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -128,7 +126,6 @@ app.post("/api/register", async (req, res) => {
 });
 
 app.post("/api/login", async (req, res) => {
-  // ... (código da rota de login que já fizemos)
   try {
     const { email, password } = req.body;
     const user = await prisma.user.findUnique({ where: { email } });
@@ -150,7 +147,7 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-// --- ROTAS PROTEGIDAS DE PROJETOS ---
+// ROTAS PROTEGIDAS
 
 app.post("/projects", authenticateToken, async (req, res) => {
   try {
@@ -189,7 +186,6 @@ app.put(
 
       const updateData = { title, description, repoUrl, deployInput, technologies };
 
-      // Se houver nova imagem, atualizar
       if (req.file) {
         updateData.imageUrl = `/uploads/${req.file.filename}`;
       }
