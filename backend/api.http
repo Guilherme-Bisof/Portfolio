@@ -21,7 +21,6 @@ Content-Type: application/json
 ### =======================================
 
 ### Registrar um novo usuário (ADMIN)
-# RODE ISSO APENAS SE PRECISAR CRIAR UM NOVO USUÁRIO
 POST http://localhost:5000/api/register
 Content-Type: application/json
 
@@ -31,7 +30,6 @@ Content-Type: application/json
 }
 
 ### Fazer Login
-# Use esta rota para pegar seu token de acesso
 POST http://localhost:5000/api/login
 Content-Type: application/json
 
