@@ -78,9 +78,7 @@ app.post("/contact", (req, res) => {
 // ROTA PÚBLICA PARA LER PROJETOS
 app.get("/projects", async (req, res) => {
   try {
-    const projects = await prisma.project.findMany({
-      orderBy: { createdAt: "desc" },
-    });
+    const projects = await prisma.project.findMany();
     res.json(projects);
   } catch (error) {
     console.error("ERRO EM /projects:", error);

@@ -1,16 +1,12 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql" // Definimos que vamos usar PostgreSQL
-  url      = env("DATABASE_URL") // Pega a URL de conexão do arquivo .env
+  provider = "postgresql" 
+  url      = env("DATABASE_URL")
 }
 
-// Nosso modelo de dados para a tabela de Projetos
 model Project {
   id          Int      @id @default(autoincrement())
   title       String
@@ -27,6 +23,6 @@ model User{
   id Int @id @default(autoincrement())
   email String @unique
   password String
-  role String @default("user") // "user" ou "admin"
+  role String @default("user")
   createdAt DateTime @default(now())
 }
