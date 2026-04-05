@@ -227,11 +227,13 @@ app.delete("/projects/:id", authenticateToken, async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 async function startServer() {
   try {
     await prisma.$connect();
     console.log("Conectado ao banco com sucesso.");
+    console.log("PORT recebida:", process.env.PORT);
+    console.log("Subindo servidor na porta:", PORT);
 
     app.listen(PORT, "0.0.0.0", () => {
       console.log(`Servidor rodando na porta ${PORT}`);
