@@ -108,6 +108,12 @@ app.get("/projects/:id", async (req, res) => {
 //  ROTAS DE AUTENTICAÇÃO
 
 app.post("/api/register", async (req, res) => {
+  const adminSecret = req.headers["x-admin-secret"];
+
+  if(adminSecret !== process.env.ADMIN_REGISTER_SECRET) {
+    return res.status(403).json({message: "Acesso negado."});
+  }
+  
   try {
     const { email, password } = req.body;
     if (!email || !password) {
