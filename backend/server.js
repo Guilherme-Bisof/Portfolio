@@ -29,11 +29,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-  }),
-);
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "https://portfolio-one-virid-12.vercel.app",
+  "https://portfolio-i6ed231jn-guilherme-bisofs-projects.vercel.app",
+  "https://portfolio-git-master-guilherme-bisofs-projects.vercel.app",
+];
+
+app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public")));
 
@@ -50,7 +54,7 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-// ROTAS PÚBLICAS 
+// ROTAS PÚBLICAS
 
 app.get("/", (req, res) => {
   res.send("Olá! A API do portfólio está no ar!");
@@ -79,7 +83,10 @@ app.get("/projects", async (req, res) => {
     });
     res.json(projects);
   } catch (error) {
-    res.status(500).json({ message: "Não foi possível listar os projetos." });
+    console.error("ERRO EM /projects:", error);
+    return res.status(500).json({
+      message: "Não foi possível listar os projetos.",
+    });
   }
 });
 
@@ -100,7 +107,7 @@ app.get("/projects/:id", async (req, res) => {
   }
 });
 
-//  ROTAS DE AUTENTICAÇÃO 
+//  ROTAS DE AUTENTICAÇÃO
 
 app.post("/api/register", async (req, res) => {
   try {
@@ -166,12 +173,10 @@ app.post("/projects", authenticateToken, async (req, res) => {
     res.status(201).json(newProject);
   } catch (error) {
     console.error("ERRO AO CRIAR PROJETO:", error);
-    res
-      .status(500)
-      .json({
-        message: "Não foi possível criar o projeto.",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Não foi possível criar o projeto.",
+      error: error.message,
+    });
   }
 });
 
@@ -182,9 +187,16 @@ app.put(
   async (req, res) => {
     try {
       const { id } = req.params;
-      const { title, description, repoUrl, technologies, deployInput } = req.body;
+      const { title, description, repoUrl, technologies, deployInput } =
+        req.body;
 
-      const updateData = { title, description, repoUrl, deployInput, technologies };
+      const updateData = {
+        title,
+        description,
+        repoUrl,
+        deployInput,
+        technologies,
+      };
 
       if (req.file) {
         updateData.imageUrl = `/uploads/${req.file.filename}`;
@@ -216,6 +228,32 @@ app.delete("/projects/:id", authenticateToken, async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(` Servidor rodando na porta http://localhost:${PORT}`);
+async function startServer() {
+  try {
+    await prisma.$connect();
+    console.log("Conectado ao banco com sucesso.");
+
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`Servidor rodando na porta ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Erro ao iniciar servidor:", error);
+    process.exit(1);
+  }
+}
+
+startServer();
+
+app.get("/health", (req, res) => {
+  res.json({ ok: true, message: "API online" });
+});
+
+app.get("/db-test", async (req, res) => {
+  try {
+    const count = await prisma.project.count();
+    res.json({ ok: true, totalProjects: count });
+  } catch (error) {
+    console.error("ERRO EM /db-test:", error);
+    res.status(500).json({ ok: false, error: error.message });
+  }
 });
