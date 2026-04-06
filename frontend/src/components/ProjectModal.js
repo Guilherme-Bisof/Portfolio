@@ -1,26 +1,24 @@
 "use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 export default function ProjectModal({ project, onClose }) {
   if (!project) return null;
 
-  // Impede o fechamento do modal ao clicar dentro do conteúdo
   const handleContentClick = (e) => e.stopPropagation();
 
   return (
-    // Backdrop semi-transparente que cobre a tela
     <div
       onClick={onClose}
       className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
     >
-      {/* Container principal do modal */}
+      {/* Container principal*/}
       <div
         onClick={handleContentClick}
-        className="bg-gray-900 w-full max-w-3xl rounded-lg border border-cyan-400/30 shadow-[0_0_25px_rgba(0,255,255,0.2)] flex flex-col max-h-[90vh]"
+        className="bg-gray-900 max-h-[90vh] overflow-y-auto rounded-lg border border-cyan-400/30 shadow-[0_0_25px_rgba(0,255,255,0.2)] flex flex-col max-h-[90vh]"
       >
-        {/* Cabeçalho com título e botão de fechar */}
+        {/* título e botão de fechar */}
         <div className="flex justify-between items-center p-6 border-b border-gray-700">
           <h2 className="text-3xl font-bold text-cyan-400">{project.title}</h2>
           <button
@@ -35,7 +33,7 @@ export default function ProjectModal({ project, onClose }) {
         <div className="p-6 overflow-y-auto">
           <p className="text-gray-300 mb-6">{project.description}</p>
 
-          {/* Seção de Responsabilidades */}
+          {/* Responsabilidades */}
           <div className="mb-6">
             <h4 className="font-semibold text-lg text-cyan-400 mb-2">
               Responsabilidades
@@ -87,7 +85,17 @@ export default function ProjectModal({ project, onClose }) {
           )}
 
           {project.deployInput && (
-            <Link href={project.deployInput.startsWith('http') ? project.deployInput : `https://${project.deployInput}`} target="_blank" className='inline-block bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition-colors'>Link do Projeto</Link>
+            <Link
+              href={
+                project.deployInput.startsWith("http")
+                  ? project.deployInput
+                  : `https://${project.deployInput}`
+              }
+              target="_blank"
+              className="inline-block bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition-colors"
+            >
+              Link do Projeto
+            </Link>
           )}
         </div>
       </div>

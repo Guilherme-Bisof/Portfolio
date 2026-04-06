@@ -6,11 +6,11 @@ export default function AboutSection() {
   return (
     <section
       id="sobre"
-      className="flex flex-col items-center justify-center py-24 bg-black text-white "
+      className="flex flex-col items-center justify-center py-16 md:py-24 bg-black text-white "
     >
       {/* Container principal agora é mais simples e centralizado */}
       <div className="w-full max-w-3xl px-4 text-center">
-        <h1 className="text-5xl font-extrabold text-cyan-400 mb-6">
+        <h1 className="text-3xl md:text-5xl font-extrabold text-cyan-400 mb-6">
           Desenvolvedor Full-Stack focado em sistemas reais e escaláveis
         </h1>
 

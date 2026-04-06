@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-// Lista de links para a navegação
+
 const navLinks = [
   { name: "Sobre Mim", href: "/#sobre" },
   { name: "Educação", href: "/#educacao" },
@@ -12,8 +12,9 @@ const navLinks = [
 
 export default function Navbar() {
   return (
-    <aside className="fixed top-0 left-0 h-screen w-64 bg-gray-900 text-white flex flex-col p-8 border-r border-gray-700">
-      {/* Seção do Perfil */}
+    <aside className="hidden md:flex fixed top-0 left-0 h-screen w-64 bg-gray-900 text-white flex flex-col p-8 border-r border-gray-700">
+      {/*  Perfil */}
+      <div className='text-white font-bold'>Guilherme</div>
       <div className="text-center mb-12">
         <Image
           src="/perfil.jpg"
@@ -26,7 +27,7 @@ export default function Navbar() {
         <p className="text-sm text-gray-400">Desenvolvedor Full-Stack</p>
       </div>
 
-      {/* Seção de Navegação Principal */}
+      {/*  Navegação Principal */}
       <nav>
         <h3 className="text-xs uppercase text-gray-500 font-bold mb-4">
           Navegação
@@ -45,8 +46,7 @@ export default function Navbar() {
         </ul>
       </nav>
 
-      {/* ===== NOVA SEÇÃO DE LOGIN DO ADMIN ===== */}
-      {/* A classe 'mt-auto' empurra este bloco e o que vem depois para o final da sidebar */}
+      {/* ===== SEÇÃO DE LOGIN DO ADMIN ===== */}
       <div className="mt-auto">
         <h3 className="text-xs uppercase text-gray-500 font-bold mb-4">
           Admin
@@ -55,12 +55,10 @@ export default function Navbar() {
           href="/admin/login"
           className="flex items-center space-x-3 hover:text-cyan-400 transition-colors"
         >
-          {/* Pode ser um ícone de engrenagem ou cadeado no futuro */}
           <span>Acessar Painel</span>
         </Link>
       </div>
 
-      {/* Seção de Copyright */}
       <div className="pt-8 text-center text-xs text-gray-600">
         © 2025 Guilherme Bisof
       </div>

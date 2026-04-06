@@ -30,26 +30,34 @@ export default function ProjectsSection() {
 
   return (
     <>
-      <section id="projetos" className="flex flex-col items-center py-24 bg-black text-white overflow-hidden">
+      <section
+        id="projetos"
+        className="flex flex-col items-center py-16 md:py-24 bg-black text-white overflow-hidden"
+      >
         <div className="w-full max-w-6xl px-4">
-          <h1 className="text-5xl font-extrabold mb-12 text-center text-cyan-400">Projetos</h1>
+          <h1 className="text-3xl md:text-5xl font-extrabold mb-12 text-center text-cyan-400">
+            Projetos
+          </h1>
 
           {projects.length > 0 ? (
             <Swiper
               modules={[Navigation, Pagination]}
               spaceBetween={30}
-              slidesPerView={1}
+              slidesPerView={1.2}
               navigation
               pagination={{ clickable: true }}
               breakpoints={{
                 768: { slidesPerView: 2 },
                 1024: { slidesPerView: 3 },
               }}
-              className="!pb-12" 
+              className="!pb-12"
             >
-              {projects.map(project => (
+              {projects.map((project) => (
                 <SwiperSlide key={project.id}>
-                  <ProjectCard project={project} onClick={() => setSelectedProject(project)} />
+                  <ProjectCard
+                    project={project}
+                    onClick={() => setSelectedProject(project)}
+                  />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -61,9 +69,9 @@ export default function ProjectsSection() {
 
       {/* Render do Modal quando um projeto é selecionado */}
       {selectedProject && (
-        <ProjectModal 
-          project={selectedProject} 
-          onClose={() => setSelectedProject(null)} 
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
         />
       )}
     </>
