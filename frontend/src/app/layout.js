@@ -13,6 +13,11 @@ export const metadata = {
   description: "Portifólio de desenvolvimento de Guilherme Bisof"
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-br">
