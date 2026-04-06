@@ -21,13 +21,11 @@ export default function ContactSection() {
   return (
     <section
       id="contato"
-      className="flex flex-col items-center py-16 md:py-24 bg-black text-white"
+      className="flex flex-col items-center py-24 bg-black text-white"
     >
       <div className="w-full max-w-4xl px-4 text-center">
         <div className="inline-block">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white">
-            Contatos
-          </h1>
+          <h1 className="text-5xl font-extrabold text-white">Contatos</h1>
           <div className="h-1 w-2/3 bg-cyan-400 mt-2 mx-auto"></div>
         </div>
 

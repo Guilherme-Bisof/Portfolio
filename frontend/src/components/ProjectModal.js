@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function ProjectModal({ project, onClose }) {
   if (!project) return null;
@@ -16,7 +16,7 @@ export default function ProjectModal({ project, onClose }) {
       {/* Container principal*/}
       <div
         onClick={handleContentClick}
-        className="bg-gray-900 max-h-[90vh] overflow-y-auto rounded-lg border border-cyan-400/30 shadow-[0_0_25px_rgba(0,255,255,0.2)] flex flex-col max-h-[90vh]"
+        className="bg-gray-900 w-full max-w-3xl rounded-lg border border-cyan-400/30 shadow-[0_0_25px_rgba(0,255,255,0.2)] flex flex-col max-h-[90vh]"
       >
         {/* título e botão de fechar */}
         <div className="flex justify-between items-center p-6 border-b border-gray-700">
@@ -85,17 +85,7 @@ export default function ProjectModal({ project, onClose }) {
           )}
 
           {project.deployInput && (
-            <Link
-              href={
-                project.deployInput.startsWith("http")
-                  ? project.deployInput
-                  : `https://${project.deployInput}`
-              }
-              target="_blank"
-              className="inline-block bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition-colors"
-            >
-              Link do Projeto
-            </Link>
+            <Link href={project.deployInput.startsWith('http') ? project.deployInput : `https://${project.deployInput}`} target="_blank" className='inline-block bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition-colors'>Link do Projeto</Link>
           )}
         </div>
       </div>

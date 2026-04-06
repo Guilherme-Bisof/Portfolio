@@ -12,9 +12,8 @@ const navLinks = [
 
 export default function Navbar() {
   return (
-    <aside className="hidden md:flex fixed top-0 left-0 h-screen w-64 bg-gray-900 text-white flex flex-col p-8 border-r border-gray-700">
+    <aside className="fixed top-0 left-0 h-screen w-64 bg-gray-900 text-white flex flex-col p-8 border-r border-gray-700">
       {/*  Perfil */}
-      <div className='text-white font-bold'>Guilherme</div>
       <div className="text-center mb-12">
         <Image
           src="/perfil.jpg"
@@ -46,7 +45,7 @@ export default function Navbar() {
         </ul>
       </nav>
 
-      {/* ===== SEÇÃO DE LOGIN DO ADMIN ===== */}
+      {/*  LOGIN DO ADMIN */}
       <div className="mt-auto">
         <h3 className="text-xs uppercase text-gray-500 font-bold mb-4">
           Admin
@@ -59,6 +58,7 @@ export default function Navbar() {
         </Link>
       </div>
 
+      {/* Copyright */}
       <div className="pt-8 text-center text-xs text-gray-600">
         © 2025 Guilherme Bisof
       </div>
