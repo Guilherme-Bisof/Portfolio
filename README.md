@@ -111,17 +111,22 @@ NEXT_PUBLIC_API_URL=
 ## 🚀 Como rodar localmente
 
 # Clone o projeto
-git clone https://github.com/seu-usuario/portfolio.git
+git clone https://github.com/Guilherme-Bisof/Portfolio.git
 
 # Backend
 cd backend
+
 npm install
+
 npx prisma migrate dev
+
 npm run dev
 
 # Frontend
 cd frontend
+
 npm install
+
 npm run dev
 
 ---
