@@ -28,12 +28,12 @@ export default function EducationSection() {
       <div className="w-full max-w-4xl px-4">
         {/* Título */}
         <div className="w-full mb-16">
-          <h1 className="text-5xl font-extrabold text-white">Educação</h1>
+          <h1 className="text-3xl md:text-5xl font-extrabold text-white">Educação</h1>
           <div className="h-1 w-24 bg-cyan-400 mt-2"></div>
         </div>
 
         {/*  Graduação */}
-        <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-8 flex gap-8">
+        <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8">
           <div className="text-cyan-400 mt-1">
             <FaGraduationCap size={32} />
           </div>

@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           {}
           {}
-          <div className="ml-64">
+          <div className="md:ml-64">
             {children}
           </div>
         </AuthProvider>

@@ -47,7 +47,7 @@ export default function SkillsSection() {
   return (
     <section id="habilidades" className="flex flex-col items-center py-24 bg-black text-white">
       <div className="w-full max-w-4xl px-4">
-        <h1 className="text-5xl font-extrabold mb-12 text-center text-cyan-400">Habilidades</h1>
+        <h1 className="text-3xl md:text-5xl font-extrabold mb-12 text-center text-cyan-400">Habilidades</h1>
         
         <div className="mb-12">
           <h2 className="text-3xl font-bold mb-6 text-white">Tecnologias Principais</h2>

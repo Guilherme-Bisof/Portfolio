@@ -10,7 +10,7 @@ export default function AboutSection() {
     >
       {/* Container principal agora é mais simples e centralizado */}
       <div className="w-full max-w-3xl px-4 text-center">
-        <h1 className="text-5xl font-extrabold text-cyan-400 mb-6">
+        <h1 className="text-3xl md:text-5xl font-extrabold text-cyan-400 mb-6">
           Desenvolvedor Full-Stack focado em sistemas reais e escaláveis
         </h1>
 
