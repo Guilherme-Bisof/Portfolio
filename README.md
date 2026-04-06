@@ -55,18 +55,8 @@ Ele foi construído como uma aplicação fullstack real, com:
 
 ## 🏗️ Arquitetura
 
-portfolio/
-├── backend/
-│   ├── prisma/
-│   ├── public/uploads/
-│   ├── server.js
-│   └── .env
-│
-└── frontend/
-    ├── src/app/
-    ├── components/
-    ├── hooks/
-    └── .env.local
+<img width="209" height="242" alt="image" src="https://github.com/user-attachments/assets/f9d4f1d5-3409-4ad5-990d-9f974e9ce502" />
+
 
 ---
 
