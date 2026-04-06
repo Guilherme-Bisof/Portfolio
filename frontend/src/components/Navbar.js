@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -10,6 +12,8 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <>
       {/* Botão mobile*/}
@@ -31,10 +35,20 @@ export default function Navbar() {
 
       {/*  Overlay escuro mobile */}
       {menuOpen && (
-        <div className="fixed inset-0 bg-black/60 z-30 md:hidden" onClick={() => setMenuOpen(false)} />
+        <div
+          className="fixed inset-0 bg-black/60 z-30 md:hidden"
+          onClick={() => setMenuOpen(false)}
+        />
       )}
 
-      <aside className="fixed top-0 left-0 h-screen w-64 bg-gray-900 text-white flex flex-col p-8 border-r border-gray-700 z-40 transition-transform duration-300 `{menuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0">
+      <aside
+        className={`
+          fixed top-0 left-0 h-screen w-64 bg-gray-900 text-white flex flex-col p-8 border-r border-gray-700 z-40
+          transition-transform duration-300
+          ${menuOpen ? "translate-x-0" : "-translate-x-full"}
+          md:translate-x-0
+        `}
+      >
         {/*  Perfil */}
         <div className="text-center mb-12">
           <Image
@@ -66,7 +80,7 @@ export default function Navbar() {
             ))}
           </ul>
         </nav>
-            
+
         {/*  LOGIN DO ADMIN */}
         {/*
         <div className="mt-auto">
