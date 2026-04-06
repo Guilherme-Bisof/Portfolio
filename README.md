@@ -93,12 +93,17 @@ O sistema utiliza JWT para controle de acesso:
 
 Backend (.env)
 DATABASE_URL=
+
 JWT_SECRET=
+
 FRONTEND_URL=
+
 ADMIN_REGISTER_SECRET=
+
 PORT=5000
 
 Frontend (.env.local)
+
 NEXT_PUBLIC_API_URL=
 
 ---
