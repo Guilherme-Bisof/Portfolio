@@ -79,7 +79,7 @@ export default function ProjectModal({ project, onClose }) {
               <Link
                 href={project.repoUrl}
                 target="_blank"
-                className="flex-1 bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition-colors pb-"
+                className="flex-1 bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition-colors text-center"
               >
                 Ver no GitHub
               </Link>
@@ -93,7 +93,7 @@ export default function ProjectModal({ project, onClose }) {
                     : `https://${project.deployInput}`
                 }
                 target="_blank"
-                className="flex-1 bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition-colors"
+                className="flex-1 bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition-colors text-center"
               >
                 Link do Projeto
               </Link>
