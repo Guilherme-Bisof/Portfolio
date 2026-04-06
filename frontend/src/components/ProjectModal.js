@@ -74,19 +74,31 @@ export default function ProjectModal({ project, onClose }) {
           </div>
 
           {/* Botões de Ação */}
-          {project.repoUrl && (
-            <Link
-              href={project.repoUrl}
-              target="_blank"
-              className="inline-block bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition-colors"
-            >
-              Ver no GitHub
-            </Link>
-          )}
+          <div className='flex flex-col sm:flex-row gap-3 mt-6'>
+            {project.repoUrl && (
+              <Link
+                href={project.repoUrl}
+                target="_blank"
+                className="flex-1 bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition-colors pb-"
+              >
+                Ver no GitHub
+              </Link>
+            )}
 
-          {project.deployInput && (
-            <Link href={project.deployInput.startsWith('http') ? project.deployInput : `https://${project.deployInput}`} target="_blank" className='inline-block bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition-colors'>Link do Projeto</Link>
-          )}
+            {project.deployInput && (
+              <Link
+                href={
+                  project.deployInput.startsWith("http")
+                    ? project.deployInput
+                    : `https://${project.deployInput}`
+                }
+                target="_blank"
+                className="flex-1 bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition-colors"
+              >
+                Link do Projeto
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </div>
