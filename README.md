@@ -2,7 +2,7 @@
 
 Aplicação completa de portfólio desenvolvida com foco em sistemas reais e escaláveis, incluindo frontend moderno, backend robusto e painel administrativo para gerenciamento de conteúdo.
 
-🔗 Acesse o projeto: [ LINK ](https://portfolio-one-virid-12.vercel.app/)]
+🔗 Acesse o projeto: [ LINK ](https://portfolio-one-virid-12.vercel.app/)
 
 ---
 
