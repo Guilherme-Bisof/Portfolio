@@ -81,7 +81,7 @@ export default function EducationSection() {
           <h2 className="text-3xl font-bold mb-8 text-white">
             Cursos Complementares
           </h2>
-          <div className="relative border-s-2 border-default bg-cyan-400/30 space-y-8">
+          <div className="relative border-s-2 border-default space-y-8">
               {complementaryCourses.map((course) => (
                 <div
                   key={course.name}
