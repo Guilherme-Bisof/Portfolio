@@ -1,4 +1,4 @@
-// frontend>src>app>admin>projects>new>page.js : 
+// frontend>src>app>admin>projects>new>page.js :
 
 "use client";
 
@@ -20,6 +20,7 @@ export default function NewProjectPage() {
   const [deployInput, setdeployInput] = useState("");
   const [technologies, setTechnologies] = useState([]);
   const [error, setError] = useState("");
+  const [type, setType] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +38,7 @@ export default function NewProjectPage() {
       repoUrl,
       deployInput,
       technologies,
+      type,
     };
 
     try {
@@ -68,6 +70,18 @@ export default function NewProjectPage() {
       ) {
         setTechnologies([...technologies, value]);
         settechInput("");
+      }
+    }
+  };
+
+  const handleAddType = (e) => {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+
+      const value = type.trim();
+
+      if (value && !type.some((t) => t.toLowerCase() === value.toLowerCase())) {
+        setType([...type, value]);
       }
     }
   };
@@ -193,6 +207,22 @@ export default function NewProjectPage() {
                 </button>
               </span>
             ))}
+          </div>
+
+          <div>
+            <label
+              htmlFor="setType"
+              className="block text-sm font-medium text-gray-300"
+            >
+              Tipo
+            </label>
+            <input
+              type="text"
+              id="setType"
+              onChange={(e) => setType(e.input.value)}
+              onKeyDown={handleAddType}
+              className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
+            ></input>
           </div>
 
           {error && <p className="text-red-500">{error}</p>}
