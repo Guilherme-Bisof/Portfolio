@@ -48,9 +48,9 @@ export default function EducationSection() {
             <FaGraduationCap size={32} />
           </div>
           <div className="flex-1">
-            <p className="text-sm font-semibold text-white mb-2">{graduation.period}</p>
+            <p className="text-sm font-semibold text-gray-300 mb-2">{graduation.period}</p>
             <h3 className="text-2xl font-bold text-cyan-400 mb-1">{graduation.course}</h3>
-            <p className="text-lg text-cyan-700 mb-6">{graduation.description}</p>
+            <p className="text-lg text-white mb-6">{graduation.description}</p>
             <p className="text-base text-gray-400 mb-4">{graduation.institution}</p>
             <div className="flex flex-wrap gap-2">
               {graduation.tags.map(tag => (

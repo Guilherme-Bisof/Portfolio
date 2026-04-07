@@ -98,7 +98,7 @@ export default function Navbar() {
 
         {/* Copyright */}
         <div className="pt-8 text-center text-xs text-gray-600">
-          © 2025 Guilherme Bisof
+          © 2026 Guilherme Bisof
         </div>
       </aside>
     </>
