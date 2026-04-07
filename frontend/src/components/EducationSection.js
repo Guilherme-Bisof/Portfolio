@@ -81,13 +81,13 @@ export default function EducationSection() {
           <h2 className="text-3xl font-bold mb-8 text-white">
             Cursos Complementares
           </h2>
-          <div className="relative border-s-2 border-default space-y-8">
+          <div className="relative border-s-2 border-default bg-cyan-400/30 space-y-8">
               {complementaryCourses.map((course) => (
                 <div
                   key={course.name}
                   className="flex items-center gap-6 p-4 rounded-lg hover:bg-gray-900/50 transition-colors"
                 >
-                  <div className="text-gray-500">
+                  <div className="text-cyan-600 animate-pulse">
                     <FaCertificate size={18} />
                   </div>
                   <div className="text-gray-400 font-medium">{course.year}</div>

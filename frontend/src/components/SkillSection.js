@@ -6,8 +6,6 @@ import {
   FaNodeJs,
   FaGitAlt,
   FaPhp,
-  FaHtml5,
-  FaCss3Alt,
   FaGithub,
 } from "react-icons/fa";
 
@@ -15,8 +13,6 @@ import {
 import {
   SiNextdotjs,
   SiTailwindcss,
-  SiMysql,
-  SiSqlite,
   SiElectron,
   SiPrisma,
   SiAxios,
