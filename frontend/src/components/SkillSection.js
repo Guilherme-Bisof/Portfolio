@@ -16,7 +16,6 @@ import {
   SiNextdotjs,
   SiTailwindcss,
   SiMysql,
-  SiMysql,
   SiSqlite,
   SiElectron,
   SiPrisma,
