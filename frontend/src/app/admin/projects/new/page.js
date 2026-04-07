@@ -39,7 +39,7 @@ export default function NewProjectPage() {
       repoUrl,
       deployInput,
       technologies,
-      type,
+      types,
     };
 
     try {
@@ -82,7 +82,7 @@ export default function NewProjectPage() {
       const value = type.trim();
 
       if (value && !types.some((t) => t.toLowerCase() === value.toLowerCase())) {
-        setTypes([...type, value]);
+        setTypes([...types, value]);
         setType("");
       }
     }
@@ -221,7 +221,7 @@ export default function NewProjectPage() {
             <input
               type="text"
               id="setType"
-              onChange={(e) => setType(e.input.value)}
+              onChange={(e) => setType(e.target.value)}
               onKeyDown={handleAddType}
               className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
             ></input>
