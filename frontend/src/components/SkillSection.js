@@ -36,8 +36,6 @@ const backEndSkills = [
   { icon: <FaNodeJs />, name: "Node.js" },
   { icon: <FaPhp />, name: "PHP" },
   { icon: <BiLogoPostgresql />, name: "PostgreSQL" },
-  { icon: <SiMysql />, name: "MySQL" },
-  { icon: <SiSqlite />, name: "SQLite" },
   { icon: <TbApi />, name: "APIs REST" },
   { icon: <SiJsonwebtokens />, name: "JWT" },
 ];
@@ -46,8 +44,6 @@ const frontEndSkills = [
   { icon: <FaReact />, name: "React" },
   { icon: <SiNextdotjs />, name: "Next.js" },
   { icon: <FaJs />, name: "JavaScript" },
-  { icon: <FaHtml5 />, name: "Html5" },
-  { icon: <FaCss3Alt />, name: "CSS3" },
   { icon: <SiTailwindcss />, name: "Tailwind CSS" },
 ];
 
