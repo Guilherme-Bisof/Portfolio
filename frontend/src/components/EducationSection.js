@@ -34,11 +34,16 @@ const complementaryCourses = [
 
 export default function EducationSection() {
   return (
-    <section id="educacao" className="flex flex-col items-center py-24 bg-black text-white">
+    <section
+      id="educacao"
+      className="flex flex-col items-center py-24 bg-black text-white"
+    >
       <div className="w-full max-w-4xl px-4">
         {/* Título */}
         <div className="w-full mb-16">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white">Educação</h1>
+          <h1 className="text-3xl md:text-5xl font-extrabold text-white">
+            Educação
+          </h1>
           <div className="h-1 w-24 bg-cyan-400 mt-2"></div>
         </div>
 
@@ -48,13 +53,24 @@ export default function EducationSection() {
             <FaGraduationCap size={32} />
           </div>
           <div className="flex-1">
-            <p className="text-sm font-semibold text-gray-300 mb-2">{graduation.period}</p>
-            <h3 className="text-2xl font-bold text-cyan-400 mb-1">{graduation.course}</h3>
+            <p className="text-sm font-semibold text-gray-300 mb-2">
+              {graduation.period}
+            </p>
+            <h3 className="text-2xl font-bold text-cyan-400 mb-1">
+              {graduation.course}
+            </h3>
             <p className="text-lg text-white mb-6">{graduation.description}</p>
-            <p className="text-base text-gray-400 mb-4">{graduation.institution}</p>
+            <p className="text-base text-gray-400 mb-4">
+              {graduation.institution}
+            </p>
             <div className="flex flex-wrap gap-2">
-              {graduation.tags.map(tag => (
-                <span key={tag} className="bg-gray-700 text-cyan-300 text-sm px-3 py-1 rounded-full">{tag}</span>
+              {graduation.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="bg-gray-700 text-cyan-300 text-sm px-3 py-1 rounded-full"
+                >
+                  {tag}
+                </span>
               ))}
             </div>
           </div>
@@ -62,18 +78,29 @@ export default function EducationSection() {
 
         {/*  Cursos Complementares */}
         <div className="mt-16">
-          <h2 className="text-3xl font-bold mb-8 text-white">Cursos Complementares</h2>
-          <div className="space-y-8">
-            {complementaryCourses.map(course => (
-              <div key={course.name} className="flex items-center gap-6 p-4 rounded-lg hover:bg-gray-900/50 transition-colors">
-                <div className="text-gray-500"><FaCertificate size={18} /></div>
-                <div className="text-gray-400 font-medium">{course.year}</div>
-                <div className="flex-1">
-                  <h4 className="text-xl font-bold text-cyan-400">{course.name}</h4>
-                  <p className="text-base text-gray-400">{course.institution}</p>
+          <h2 className="text-3xl font-bold mb-8 text-white">
+            Cursos Complementares
+          </h2>
+          <div className="relative border-s-2 border-default space-y-8">
+              {complementaryCourses.map((course) => (
+                <div
+                  key={course.name}
+                  className="flex items-center gap-6 p-4 rounded-lg hover:bg-gray-900/50 transition-colors"
+                >
+                  <div className="text-gray-500">
+                    <FaCertificate size={18} />
+                  </div>
+                  <div className="text-gray-400 font-medium">{course.year}</div>
+                  <div className="flex-1">
+                    <h4 className="text-xl font-bold text-cyan-400">
+                      {course.name}
+                    </h4>
+                    <p className="text-base text-gray-400">
+                      {course.institution}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>
