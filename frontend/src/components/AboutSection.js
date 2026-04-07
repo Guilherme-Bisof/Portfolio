@@ -18,19 +18,19 @@ export default function AboutSection() {
             Construo sistemas reais, escaláveis e prontos para produção.
           </h1>
 
-          <h2 className="text-2xl md:text-4xl font-bold text-cyan-400 mb-6">
+          <h2 className="text-xl md:text-3xl font-semibold text-white mb-6">
             Desenvolvedor Full-Stack focado em backend, interfaces funcionais e
             produtos que resolvem problemas de verdade.
           </h2>
         </div>
-        <p className="text-sm md:text-base text-gray-400 leading-relaxed max-w-x1 mx-auto">
+        <p className="text-sm md:text-base text-gray-400 leading-8 max-w-xl mx-auto">
           Projetos com autenticação, banco de dados, deploy em produção e
           arquitetura próxima ao mercado real.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
             href="#projetos"
-            class=" bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition-opacity"
+            class=" bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition"
           >
             Ver Projetos
           </a>
