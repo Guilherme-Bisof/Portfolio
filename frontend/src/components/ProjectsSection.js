@@ -45,7 +45,7 @@ export default function ProjectsSection() {
                 768: { slidesPerView: 2 },
                 1024: { slidesPerView: 3 },
               }}
-              className="!pb-12" 
+              className="pb-12" 
             >
               {projects.map(project => (
                 <SwiperSlide key={project.id}>

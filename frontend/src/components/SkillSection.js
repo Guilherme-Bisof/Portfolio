@@ -59,7 +59,6 @@ const tools = [
   { icon: <SiAxios />, name: "Axios" },
   { icon: <SiVercel />, name: "Vercel (deploy)" },
   { icon: <SiRailway />, name: "Railway (backend)" },
-  {}
 ];
 
 export default function SkillsSection() {
