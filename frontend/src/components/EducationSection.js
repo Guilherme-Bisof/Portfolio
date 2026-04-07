@@ -4,15 +4,25 @@ const graduation = {
   course: "Análise e Desenvolvimento de Sistemas",
   institution: "UniCesumar - Tatuí/SP",
   period: "Conclusão: Junho 2028",
-  // description: "Curso superior com foco em gestão de projetos de tecnologia, infraestrutura e sistemas de informação.",
-  tags: ["ADS", "TI", "Projetos"]
+  description: "Foco em desenvolvimento de sistemas e aplicações reais",
+  tags: ["ADS", "TI", "Projetos"],
 };
 
 const complementaryCourses = [
   {
+    name: "Linux Unhatched ",
+    institution: "Cisco",
+    year: "2025"
+  },
+  {
     name: "Introdução à POO",
     institution: "Fundação Bradesco",
-    year: "Prev. 2025"
+    year: " 2025"
+  },
+  {
+    name:"Versionamento de Código com Git e GitHub",
+    institution: "DIO",
+    year: "2025"
   },
   {
     name: "Site com HTML, CSS e JS",
@@ -38,10 +48,10 @@ export default function EducationSection() {
             <FaGraduationCap size={32} />
           </div>
           <div className="flex-1">
-            <p className="text-sm font-semibold text-cyan-400 mb-2">{graduation.period}</p>
-            <h3 className="text-2xl font-bold text-white mb-1">{graduation.course}</h3>
-            <p className="text-lg text-gray-400 mb-4">{graduation.institution}</p>
+            <p className="text-sm font-semibold text-white mb-2">{graduation.period}</p>
+            <h3 className="text-2xl font-bold text-cyan-400 mb-1">{graduation.course}</h3>
             <p className="text-gray-300 mb-6">{graduation.description}</p>
+            <p className="text-lg text-gray-400 mb-4">{graduation.institution}</p>
             <div className="flex flex-wrap gap-2">
               {graduation.tags.map(tag => (
                 <span key={tag} className="bg-gray-700 text-cyan-300 text-sm px-3 py-1 rounded-full">{tag}</span>
@@ -53,13 +63,13 @@ export default function EducationSection() {
         {/*  Cursos Complementares */}
         <div className="mt-16">
           <h2 className="text-3xl font-bold mb-8 text-white">Cursos Complementares</h2>
-          <div className="space-y-6">
+          <div className="space-y-8">
             {complementaryCourses.map(course => (
               <div key={course.name} className="flex items-center gap-6 p-4 rounded-lg hover:bg-gray-900/50 transition-colors">
                 <div className="text-gray-500"><FaCertificate size={24} /></div>
-                <div className="text-gray-400 font-semibold">{course.year}</div>
+                <div className="text-gray-400 font-medium">{course.year}</div>
                 <div className="flex-1">
-                  <h4 className="text-lg font-bold text-white">{course.name}</h4>
+                  <h4 className="text-xl font-bold text-cyan-400">{course.name}</h4>
                   <p className="text-sm text-gray-400">{course.institution}</p>
                 </div>
               </div>
