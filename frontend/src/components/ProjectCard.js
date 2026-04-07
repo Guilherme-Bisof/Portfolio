@@ -11,7 +11,9 @@ export default function ProjectCard({ project, onClick }) {
     >
       <h3 className="text-xl font-bold mb-2 text-cyan-400">{title}</h3>
       <p className="text-gray-300 grow mb-4 line-clamp-4">{description}</p>
-      <span>{technologies}</span>
+      <span className="bg-gray-700 text-cyan-300 text-sm px-3 py-1 rounded-full flex flex-wrap gap-2">
+        {technologies}
+      </span>
       <div className="mt-auto text-cyan-500 font-semibold">Ver Detalhes</div>
     </div>
   );
