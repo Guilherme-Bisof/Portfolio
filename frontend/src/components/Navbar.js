@@ -55,8 +55,8 @@ export default function Navbar() {
           <Image
             src="/perfil.jpg"
             alt="Foto de Guilherme Bisof"
-            width={200}
-            height={200}
+            width={100}
+            height={100}
             className="rounded-full mx-auto mb-4 border-2 border-cyan-400"
           />
           <h2 className="text-xl font-bold">Guilherme Bisof</h2>
