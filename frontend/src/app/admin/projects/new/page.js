@@ -21,7 +21,6 @@ export default function NewProjectPage() {
   const [technologies, setTechnologies] = useState([]);
   const [error, setError] = useState("");
   const [type, setType] = useState("");
-  const [types, setTypes] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,19 +70,6 @@ export default function NewProjectPage() {
       ) {
         setTechnologies([...technologies, value]);
         settechInput("");
-      }
-    }
-  };
-
-  const handleAddType = (e) => {
-    if (e.key === "Enter" || e.key === ",") {
-      e.preventDefault();
-
-      const value = type.trim();
-
-      if (value && !types.some((t) => t.toLowerCase() === value.toLowerCase())) {
-        setTypes([...types, value]);
-        setType("");
       }
     }
   };
@@ -219,30 +205,13 @@ export default function NewProjectPage() {
               Tipo
             </label>
             <input
+              value={type}
               type="text"
               id="setType"
               onChange={(e) => setType(e.target.value)}
               onKeyDown={handleAddType}
               className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
             ></input>
-          </div>
-
-          <div className="flex flex-wrap gap-2 mt-3">
-            {types.map((tp, index) => (
-              <span
-                key={index}
-                className="flex items-center gap-2 bg-gray-700 text-cyan-300 text-sm px-3 py-1 rounded-full"
-              >
-                {tp}
-                <button
-                  type="button"
-                  onClick={() => setTypes(types.filter((_, i) => i !== index))}
-                  className="text-gray-400 hover:text-white"
-                >
-                  &times;
-                </button>
-              </span>
-            ))}
           </div>
 
           {error && <p className="text-red-500">{error}</p>}

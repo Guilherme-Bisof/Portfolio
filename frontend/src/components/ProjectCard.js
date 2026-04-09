@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function ProjectCard({ project, onClick }) {
-  const { title, description, imageUrl, repoUrl, deployInput,technologies,types,type } = project;
+  const { title, description, imageUrl, repoUrl, deployInput,technologies,type } = project;
 
   return (
     <div
