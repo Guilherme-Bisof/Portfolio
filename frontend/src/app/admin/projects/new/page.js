@@ -209,7 +209,6 @@ export default function NewProjectPage() {
               type="text"
               id="setType"
               onChange={(e) => setType(e.target.value)}
-              onKeyDown={"Enter"}
               className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
             ></input>
           </div>
