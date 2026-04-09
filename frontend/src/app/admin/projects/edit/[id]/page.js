@@ -21,6 +21,7 @@ export default function EditProjectPage() {
     type: "",
   });
   const [techInput, setTechInput] = useState("");
+  const [type, setType] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
