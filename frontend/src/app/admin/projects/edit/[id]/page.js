@@ -21,7 +21,6 @@ export default function EditProjectPage() {
     type: "",
   });
   const [techInput, setTechInput] = useState("");
-  const [type, setType] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -210,10 +209,10 @@ export default function EditProjectPage() {
               Tipo
             </label>
             <input
-              value={type}
               type="text"
-              id="setType"
-              onChange={(e) => setType(e.target.value)}
+              name="type"
+              value={project.type || ""}
+              onChange={handleChange}
               className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
             ></input>
           </div>

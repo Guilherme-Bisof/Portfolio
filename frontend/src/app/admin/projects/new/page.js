@@ -1,5 +1,3 @@
-// frontend>src>app>admin>projects>new>page.js :
-
 "use client";
 
 import { useState } from "react";
