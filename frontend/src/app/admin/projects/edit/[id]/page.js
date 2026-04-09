@@ -2,14 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-// 1. Importe o useParams junto com o useRouter
 import { useRouter, useParams } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";
 
-// 2. Remova o { params } da função
 export default function EditProjectPage() {
-  // 3. Use o hook useParams para pegar o id
   const { id } = useParams();
   const { token } = useAuth();
   const router = useRouter();
@@ -21,6 +18,7 @@ export default function EditProjectPage() {
     repoUrl: "",
     deployInput: "",
     technologies: [],
+    type: "",
   });
   const [techInput, setTechInput] = useState("");
   const [error, setError] = useState("");
@@ -201,6 +199,22 @@ export default function EditProjectPage() {
                 </button>
               </span>
             ))}
+          </div>
+
+          <div>
+            <label
+              htmlFor="setType"
+              className="block text-sm font-medium text-gray-300"
+            >
+              Tipo
+            </label>
+            <input
+              value={type}
+              type="text"
+              id="setType"
+              onChange={(e) => setType(e.target.value)}
+              className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
+            ></input>
           </div>
 
           {error && <p className="text-red-500">{error}</p>}
