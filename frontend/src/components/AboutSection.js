@@ -15,7 +15,8 @@ export default function AboutSection() {
       <div className="w-full max-w-3xl px-4 text-center space-y-8">
         <div className="space-y-4">
           <h1 className="text-3xl md:text-5xl font-extrabold text-cyan-400 mb-6">
-            Construo sistemas reais, escaláveis e prontos para produção.
+            Desenvolvo sistemas escaláveis, performáticos e prontos para
+            produção real.
           </h1>
 
           <h2 className="text-xl md:text-3xl font-semibold text-white mb-6">
