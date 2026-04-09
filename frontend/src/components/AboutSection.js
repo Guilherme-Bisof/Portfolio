@@ -31,7 +31,7 @@ export default function AboutSection() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
             href="#projetos"
-            class=" bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition"
+            class=" bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition scroll-smooth"
           >
             Ver Projetos
           </a>
