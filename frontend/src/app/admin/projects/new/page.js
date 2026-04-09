@@ -39,7 +39,6 @@ export default function NewProjectPage() {
       repoUrl,
       deployInput,
       technologies,
-      types,
       type,
     };
 

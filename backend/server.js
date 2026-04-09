@@ -162,7 +162,7 @@ app.post("/api/login", async (req, res) => {
 
 app.post("/projects", authenticateToken, async (req, res) => {
   try {
-    const { title, description, imageUrl, repoUrl, technologies, deployInput, type, types } =
+    const { title, description, imageUrl, repoUrl, technologies, deployInput, type } =
       req.body;
     const newProject = await prisma.project.create({
       data: {
@@ -173,7 +173,6 @@ app.post("/projects", authenticateToken, async (req, res) => {
         technologies,
         deployInput,
         type,
-        types,
       },
     });
     res.status(201).json(newProject);
@@ -193,7 +192,7 @@ app.put(
   async (req, res) => {
     try {
       const { id } = req.params;
-      const { title, description, repoUrl, technologies, deployInput,type,types } =
+      const { title, description, repoUrl, technologies, deployInput,type } =
         req.body;
 
       const updateData = {
@@ -203,7 +202,6 @@ app.put(
         deployInput,
         technologies,
         type,
-        types,
       };
 
       if (req.file) {
