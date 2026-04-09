@@ -40,6 +40,7 @@ export default function NewProjectPage() {
       deployInput,
       technologies,
       types,
+      type,
     };
 
     try {
