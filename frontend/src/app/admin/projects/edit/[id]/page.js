@@ -86,7 +86,6 @@ export default function EditProjectPage() {
     formData.append("deployInput", project.deployInput || "");
     formData.append("type", project.type || "");
     formData.append("technologies", JSON.stringify(project.technologies));
-    formData.append("image", project.image || "");
 
     if (newImage) {
       formData.append("image", newImage);
