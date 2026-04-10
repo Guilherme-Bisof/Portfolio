@@ -11,7 +11,7 @@ model Project {
   id          Int      @id @default(autoincrement())
   title       String
   description String   @db.Text
-  imageUrl    String?  
+  image    String?  
   repoUrl     String?
   deployInput String?
   technologies String[]

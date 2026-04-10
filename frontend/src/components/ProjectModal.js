@@ -30,9 +30,9 @@ export default function ProjectModal({ project, onClose }) {
         </div>
 
         {/*Imagem */}
-        {project.imageUrl && (
+        {project.image && (
           <img
-            src={project.imageUrl}
+            src={project.image}
             className="w-full h-20 object-cover rounded-lg border-cyan-400/30 shadow-[0_0_25px_rgba(0,255,255,0.2) mb-4 transition-transform duration-300 hover:scale-[1.02]" alt={project.title} onError={(e) => e.target.style.display = 'none'}
           />
         )}

@@ -176,6 +176,9 @@ app.post("/projects", authenticateToken, async (req, res) => {
       },
     });
     res.status(201).json(newProject);
+    if(req.file) {
+      updateData.image = `/uploads/${req.file.filename}`;
+    }
   } catch (error) {
     console.error("ERRO AO CRIAR PROJETO:", error);
     res.status(500).json({
@@ -192,7 +195,7 @@ app.put(
   async (req, res) => {
     try {
       const { id } = req.params;
-      const { title, description, repoUrl, technologies, deployInput,type } =
+      const { title, description, repoUrl, technologies, deployInput,type, image } =
         req.body;
 
       const updateData = {
@@ -202,6 +205,7 @@ app.put(
         deployInput,
         technologies,
         type,
+        image,
       };
 
       if (req.file) {
