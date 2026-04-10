@@ -14,7 +14,7 @@ export default function EditProjectPage() {
   const [project, setProject] = useState({
     title: "",
     description: "",
-    imageUrl: "",
+    image: "",
     repoUrl: "",
     deployInput: "",
     technologies: [],
@@ -131,13 +131,13 @@ export default function EditProjectPage() {
             ></textarea>
           </div>
           <div>
-            <label htmlFor="imageUrl" className="block text-sm font-medium">
+            <label htmlFor="image" className="block text-sm font-medium">
               URL da Imagem
             </label>
             <input
-              type="text"
-              name="imageUrl"
-              value={project.imageUrl || ""}
+              type="file"
+              name="image"
+              value={project.image || ""}
               onChange={handleChange}
               className="mt-1 block w-full bg-gray-700 rounded-md p-2"
             />
@@ -173,7 +173,7 @@ export default function EditProjectPage() {
               Tecnologias
             </label>
             <input
-              type="text"
+              type="file"
               id="techInput"
               value={techInput}
               onChange={(e) => setTechInput(e.target.value)}

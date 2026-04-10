@@ -12,7 +12,7 @@ export default function NewProjectPage() {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [image, setImage] = useState("");
   const [repoUrl, setRepoUrl] = useState("");
   const [techInput, settechInput] = useState("");
   const [deployInput, setdeployInput] = useState("");
@@ -32,7 +32,7 @@ export default function NewProjectPage() {
     const newProject = {
       title,
       description,
-      imageUrl,
+      image,
       repoUrl,
       deployInput,
       technologies,
@@ -115,16 +115,16 @@ export default function NewProjectPage() {
           </div>
           <div>
             <label
-              htmlFor="imageUrl"
+              htmlFor="image"
               className="block text-sm font-medium text-gray-300"
             >
               URL da Imagem (Opcional)
             </label>
             <input
-              type="text"
-              id="imageUrl"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
+              type="file"
+              id="image"
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
               className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
             />
           </div>
