@@ -172,7 +172,7 @@ app.post(
       const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
 
       const parsedTechnologies =
-        typeof technologies === "sring"
+        typeof technologies === "string"
           ? JSON.parse(technologies)
           : technologies;
       const newProject = await prisma.project.create({
@@ -215,7 +215,7 @@ app.put(
       } = req.body;
 
       const parsedTechnologies =
-        typeof technologies === "sring"
+        typeof technologies === "string"
           ? JSON.parse(technologies)
           : technologies;
       const updateData = {
