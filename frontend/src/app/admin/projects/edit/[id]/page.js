@@ -21,6 +21,7 @@ export default function EditProjectPage() {
     type: "",
   });
   const [techInput, setTechInput] = useState("");
+  const [newImage, setNewImage] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -54,7 +55,9 @@ export default function EditProjectPage() {
 
       if (
         value &&
-        !project.technologies.some((t) => t.toLowerCase() === value.toLowerCase())
+        !project.technologies.some(
+          (t) => t.toLowerCase() === value.toLowerCase(),
+        )
       ) {
         setProject((prevState) => ({
           ...prevState,
@@ -76,10 +79,23 @@ export default function EditProjectPage() {
     e.preventDefault();
     setError("");
 
+    const formData = new FormData();
+    formData.append("title", project.title);
+    formData.append("description", project.description);
+    formData.append("repoUrl", project.repoUrl || "");
+    formData.append("deployInput", project.deployInput || "");
+    formData.append("type", project.type || "");
+    formData.append("technologies", JSON.stringify(project.technologies));
+    formData.append("image", project.image || "");
+
+    if (newImage) {
+      formData.append("image", newImage);
+    }
+
     try {
-       const response = await axios.put(
+      const response = await axios.put(
         `${process.env.NEXT_PUBLIC_API_URL}/projects/${id}`,
-        project,
+        formData,
         {
           headers: { Authorization: `Bearer ${token}` },
         },
@@ -137,8 +153,7 @@ export default function EditProjectPage() {
             <input
               type="file"
               name="image"
-              value={project.image || ""}
-              onChange={handleChange}
+              onChange={(e) => setNewImage(e.target.files[0])}
               className="mt-1 block w-full bg-gray-700 rounded-md p-2"
             />
           </div>
@@ -173,7 +188,7 @@ export default function EditProjectPage() {
               Tecnologias
             </label>
             <input
-              type="file"
+              type="text"
               id="techInput"
               value={techInput}
               onChange={(e) => setTechInput(e.target.value)}

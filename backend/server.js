@@ -16,7 +16,7 @@ const prisma = new PrismaClient();
 // Configurar multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../public/uploads"));
+    cb(null, path.join(__dirname, "./public/uploads"));
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -39,7 +39,7 @@ const allowedOrigins = [
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "./public")));
 
 // Middleware para verificar JWT
 const authenticateToken = (req, res, next) => {
@@ -110,10 +110,10 @@ app.get("/projects/:id", async (req, res) => {
 app.post("/api/register", async (req, res) => {
   const adminSecret = req.headers["x-admin-secret"];
 
-  if(adminSecret !== process.env.ADMIN_REGISTER_SECRET) {
-    return res.status(403).json({message: "Acesso negado."});
+  if (adminSecret !== process.env.ADMIN_REGISTER_SECRET) {
+    return res.status(403).json({ message: "Acesso negado." });
   }
-  
+
   try {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -160,33 +160,42 @@ app.post("/api/login", async (req, res) => {
 
 // ROTAS PROTEGIDAS
 
-app.post("/projects", authenticateToken, async (req, res) => {
-  try {
-    const { title, description, image, repoUrl, technologies, deployInput, type } =
-      req.body;
-    const newProject = await prisma.project.create({
-      data: {
-        title,
-        description,
-        image,
-        repoUrl,
-        technologies,
-        deployInput,
-        type,
-      },
-    });
-    res.status(201).json(newProject);
-    if(req.file) {
-      updateData.image = `/uploads/${req.file.filename}`;
+app.post(
+  "/projects",
+  authenticateToken,
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const { title, description, repoUrl, technologies, deployInput, type } =
+        req.body;
+
+      const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
+
+      const parsedTechnologies =
+        typeof technologies === "sring"
+          ? JSON.parse(technologies)
+          : technologies;
+      const newProject = await prisma.project.create({
+        data: {
+          title,
+          description,
+          image: imagePath,
+          repoUrl,
+          technologies: parsedTechnologies,
+          deployInput,
+          type,
+        },
+      });
+      res.status(201).json(newProject);
+    } catch (error) {
+      console.error("ERRO AO CRIAR PROJETO:", error);
+      res.status(500).json({
+        message: "Não foi possível criar o projeto.",
+        error: error.message,
+      });
     }
-  } catch (error) {
-    console.error("ERRO AO CRIAR PROJETO:", error);
-    res.status(500).json({
-      message: "Não foi possível criar o projeto.",
-      error: error.message,
-    });
-  }
-});
+  },
+);
 
 app.put(
   "/projects/:id",
@@ -195,15 +204,26 @@ app.put(
   async (req, res) => {
     try {
       const { id } = req.params;
-      const { title, description, repoUrl, technologies, deployInput,type, image } =
-        req.body;
+      const {
+        title,
+        description,
+        repoUrl,
+        technologies,
+        deployInput,
+        type,
+        image,
+      } = req.body;
 
+      const parsedTechnologies =
+        typeof technologies === "sring"
+          ? JSON.parse(technologies)
+          : technologies;
       const updateData = {
         title,
         description,
         repoUrl,
         deployInput,
-        technologies,
+        technologies: parsedTechnologies,
         type,
         image,
       };

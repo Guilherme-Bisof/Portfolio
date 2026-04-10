@@ -12,7 +12,7 @@ export default function NewProjectPage() {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [repoUrl, setRepoUrl] = useState("");
   const [techInput, settechInput] = useState("");
   const [deployInput, setdeployInput] = useState("");
@@ -29,20 +29,32 @@ export default function NewProjectPage() {
       return;
     }
 
-    const newProject = {
-      title,
-      description,
-      image,
-      repoUrl,
-      deployInput,
-      technologies,
-      type,
-    };
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("repoUrl", repoUrl);
+    formData.append("deployInput", deployInput);
+    formData.append("type", type);
+    formData.append("technologies", technologies, JSON.stringify(technologies));
+
+    if (image) {
+      formData.append("image", image);
+    }
+
+    // const newProject = {
+    //   title,
+    //   description,
+    //   image,
+    //   repoUrl,
+    //   deployInput,
+    //   technologies,
+    //   type,
+    // };
 
     try {
       await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/projects`,
-        newProject,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -123,8 +135,7 @@ export default function NewProjectPage() {
             <input
               type="file"
               id="image"
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
+              onChange={(e) => setImage(e.target.files[0])}
               className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
             />
           </div>
