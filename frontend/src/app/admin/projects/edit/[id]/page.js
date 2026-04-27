@@ -147,7 +147,7 @@ export default function EditProjectPage() {
           </div>
           <div>
             <label htmlFor="image" className="block text-sm font-medium">
-              URL da Imagem
+              Selecionar nova imagem (Opcional)
             </label>
             <input
               type="file"

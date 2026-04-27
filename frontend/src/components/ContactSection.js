@@ -1,4 +1,6 @@
-import { FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { FaLinkedin, FaEnvelope, FaWhatsapp } from "react-icons/fa";
+
+
 
 function ContactButton({ href, icon, text }) {
   return (
@@ -17,6 +19,7 @@ function ContactButton({ href, icon, text }) {
 export default function ContactSection() {
   const userEmail = "guilherme.bisoff@gmail.com";
   const userLinkedin = "https://www.linkedin.com/in/guilhermebisof/";
+  const userWhats = "https://api.whatsapp.com/send/?phone=5514981245716&text&type=phone_number&app_absent=0"
 
   return (
     <section
@@ -40,10 +43,11 @@ export default function ContactSection() {
             icon={<FaLinkedin size={20} />}
             text="LinkedIn"
           />
+
           <ContactButton
-            href={`mailto:${userEmail}`}
-            icon={<FaEnvelope size={20} />}
-            text="Email"
+            href={userWhats}
+            icon={<FaWhatsapp size={20} />}
+            text="Whatsapp"
           />
         </div>
       </div>
