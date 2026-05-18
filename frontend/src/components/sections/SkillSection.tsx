@@ -1,5 +1,5 @@
-import SkillCard from "./SkillCard";
-
+import React from "react";
+import SkillCard from "../ui/SkillCard";
 import {
   FaJs,
   FaReact,
@@ -8,8 +8,6 @@ import {
   FaPhp,
   FaGithub,
 } from "react-icons/fa";
-
-
 import {
   SiNextdotjs,
   SiTailwindcss,
@@ -20,15 +18,15 @@ import {
   SiRailway,
   SiJsonwebtokens,
 } from "react-icons/si";
-
-import {
-  BiLogoPostgresql,
-} from "react-icons/bi";
-
+import { BiLogoPostgresql } from "react-icons/bi";
 import { TbApi } from "react-icons/tb";
 
+interface SkillItem {
+  icon: React.ReactNode;
+  name: string;
+}
 
-const backEndSkills = [
+const backEndSkills: SkillItem[] = [
   { icon: <FaNodeJs />, name: "Node.js" },
   { icon: <FaPhp />, name: "PHP" },
   { icon: <BiLogoPostgresql />, name: "PostgreSQL" },
@@ -36,14 +34,14 @@ const backEndSkills = [
   { icon: <SiJsonwebtokens />, name: "JWT" },
 ];
 
-const frontEndSkills = [
+const frontEndSkills: SkillItem[] = [
   { icon: <FaReact />, name: "React" },
   { icon: <SiNextdotjs />, name: "Next.js" },
   { icon: <FaJs />, name: "JavaScript" },
   { icon: <SiTailwindcss />, name: "Tailwind CSS" },
 ];
 
-const tools = [
+const tools: SkillItem[] = [
   { icon: <FaGitAlt />, name: "Git" },
   { icon: <FaGithub />, name: "Github" },
   { icon: <SiElectron />, name: "Electron (Desktop apps)" },
@@ -67,12 +65,8 @@ export default function SkillsSection() {
         <div className="mb-12">
           <h2 className="text-3xl font-bold mb-6 text-white">Back-End</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {backEndSkills.map((backEndSkills) => (
-              <SkillCard
-                key={backEndSkills.name}
-                icon={backEndSkills.icon}
-                name={backEndSkills.name}
-              />
+            {backEndSkills.map((skill) => (
+              <SkillCard key={skill.name} icon={skill.icon} name={skill.name} />
             ))}
           </div>
         </div>
@@ -80,12 +74,8 @@ export default function SkillsSection() {
         <div className="mb-12">
           <h2 className="text-3xl font-bold mb-6 text-white">Front-End</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {frontEndSkills.map((frontEndSkills) => (
-              <SkillCard
-                key={frontEndSkills.name}
-                icon={frontEndSkills.icon}
-                name={frontEndSkills.name}
-              />
+            {frontEndSkills.map((skill) => (
+              <SkillCard key={skill.name} icon={skill.icon} name={skill.name} />
             ))}
           </div>
         </div>

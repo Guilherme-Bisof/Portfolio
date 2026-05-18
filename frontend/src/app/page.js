@@ -1,10 +1,10 @@
 "use client"
 
-import AboutSection from '@/components/AboutSection';
-import ProjectsSection from '@/components/ProjectsSection';
-import ContactSection from '@/components/ContactSection';
-import SkillsSection from '@/components/SkillSection';
-import EducationSection from '@/components/EducationSection';
+import AboutSection from '@/components/sections/AboutSection';
+import ProjectsSection from '@/components/sections/ProjectsSection';
+import ContactSection from '@/components/sections/ContactSection';
+import SkillsSection from '@/components/sections/SkillSection';
+import EducationSection from '@/components/sections/EducationSection';
 
 export default function Home(){
 

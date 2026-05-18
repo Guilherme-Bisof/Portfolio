@@ -1,30 +1,37 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import React from "react";
+import { Project } from "@/types/project";
 
-export default function ProjectModal({ project, onClose }) {
+
+interface ProjectModalProps {
+  project: Project | null;
+  onClose: () => void;
+}
+
+export default function ProjectModal({ project, onClose }: ProjectModalProps) {
   if (!project) return null;
 
-  const handleContentClick = (e) => e.stopPropagation();
+  const handleContentClick = (e: React.MouseEvent) => e.stopPropagation();
 
   const imageSrc = project.image
     ? project.image.startsWith("http")
       ? project.image
       : `${process.env.NEXT_PUBLIC_API_URL}${project.image}`
-    : null; 
+    : "";
 
   return (
     <div
       onClick={onClose}
       className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
     >
-      {/* Container principal*/}
+      {/* Container principal */}
       <div
         onClick={handleContentClick}
         className="bg-gray-900 w-full max-w-3xl rounded-lg border border-cyan-400/30 shadow-[0_0_25px_rgba(0,255,255,0.2)] flex flex-col max-h-[90vh]"
       >
-        {/* título e botão de fechar */}
+        {/* Título e botão de fechar */}
         <div className="flex justify-between items-center p-6 border-b border-gray-700">
           <h2 className="text-3xl font-bold text-cyan-400">{project.title}</h2>
           <button
@@ -35,13 +42,15 @@ export default function ProjectModal({ project, onClose }) {
           </button>
         </div>
 
-        {/*Imagem */}
+        {/* Imagem */}
         {project.image && (
           <img
             src={imageSrc}
             className="w-full h-48 object-cover rounded-lg border border-cyan-400/30 shadow-[0_0_25px_rgba(0,255,255,0.2)] mb-4 transition-transform duration-300 hover:scale-[1.02]"
             alt={project.title}
-            onError={(e) => (e.target.style.display = "none")}
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).style.display = "none";
+            }}
           />
         )}
 
@@ -67,6 +76,7 @@ export default function ProjectModal({ project, onClose }) {
             </div>
           </div>
 
+          {/* Tecnologias */}
           <div className="mb-6">
             <h4 className="font-semibold text-lg text-cyan-400 mb-2">
               Tecnologias

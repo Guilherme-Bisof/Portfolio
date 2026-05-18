@@ -1,10 +1,15 @@
 "use client";
 
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 
-const navLinks = [
+interface NavLink {
+  name: string;
+  href: string;
+}
+
+const navLinks: NavLink[] = [
   { name: "Sobre Mim", href: "/#sobre" },
   { name: "Educação", href: "/#educacao" },
   { name: "Habilidades", href: "/#habilidades" },
@@ -13,11 +18,11 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   return (
     <>
-      {/* Botão mobile*/}
+      {/* Botão mobile */}
       <button
         className="fixed top-4 left-4 z-50 md:hidden bg-gray-900 text-white p-2 rounded-md border border-gray-700"
         onClick={() => setMenuOpen(!menuOpen)}
@@ -34,7 +39,7 @@ export default function Navbar() {
         />
       </button>
 
-      {/*  Overlay escuro mobile */}
+      {/* Overlay mobile */}
       {menuOpen && (
         <div
           className="fixed inset-0 bg-black/60 z-30 md:hidden"
@@ -50,7 +55,7 @@ export default function Navbar() {
           md:translate-x-0
         `}
       >
-        {/*  Perfil */}
+        {/* Perfil */}
         <div className="text-center mb-12">
           <Image
             src="/perfil.jpg"
@@ -63,7 +68,7 @@ export default function Navbar() {
           <p className="text-sm text-gray-400">Desenvolvedor Full-Stack</p>
         </div>
 
-        {/*  Navegação Principal */}
+        {/* Navegação Principal */}
         <nav>
           <h3 className="text-xs uppercase text-gray-500 font-bold mb-4">
             Navegação

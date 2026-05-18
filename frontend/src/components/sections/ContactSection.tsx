@@ -1,8 +1,13 @@
+import React from "react";
 import { FaLinkedin, FaEnvelope, FaWhatsapp } from "react-icons/fa";
 
+interface ContactButtonProps {
+  href: string;
+  icon: React.ReactNode;
+  text: string;
+}
 
-
-function ContactButton({ href, icon, text }) {
+function ContactButton({ href, icon, text }: ContactButtonProps) {
   return (
     <a
       href={href}
@@ -17,9 +22,9 @@ function ContactButton({ href, icon, text }) {
 }
 
 export default function ContactSection() {
-  const userEmail = "guilherme.bisoff@gmail.com";
   const userLinkedin = "https://www.linkedin.com/in/guilhermebisof/";
-  const userWhats = "https://api.whatsapp.com/send/?phone=5514981245716&text&type=phone_number&app_absent=0"
+  const userWhats =
+    "https://api.whatsapp.com/send/?phone=5514981245716&text&type=phone_number&app_absent=0";
 
   return (
     <section
@@ -28,7 +33,9 @@ export default function ContactSection() {
     >
       <div className="w-full max-w-4xl px-4 text-center">
         <div className="inline-block">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white">Contatos</h1>
+          <h1 className="text-3xl md:text-5xl font-extrabold text-white">
+            Contatos
+          </h1>
           <div className="h-1 w-2/3 bg-cyan-400 mt-2 mx-auto"></div>
         </div>
 

@@ -1,15 +1,10 @@
-import Image from "next/image";
-
-const navLinks = [
-  { name: "Projetos", href: "/#projetos" },
-  { name: "Contatos", href: "/#contato" },
-];
+import React from "react";
 
 export default function AboutSection() {
   return (
     <section
       id="sobre"
-      className="flex flex-col items-center justify-center py-20 md:py-32 bg-black text-white "
+      className="flex flex-col items-center justify-center py-20 md:py-32 bg-black text-white"
     >
       {/* Container principal */}
       <div className="w-full max-w-3xl px-4 text-center space-y-8">
@@ -31,13 +26,13 @@ export default function AboutSection() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
             href="#projetos"
-            class=" bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition scroll-smooth"
+            className="bg-cyan-600 hover:bg-cyan-700 text-black font-bold py-2 px-6 rounded transition scroll-smooth"
           >
             Ver Projetos
           </a>
           <a
             href="#contato"
-            class="border border-cyan-400 text-cyan-400 hover:bg-cyan-500 hover:text-black font-bold py-2 px-6 rounded transition"
+            className="border border-cyan-400 text-cyan-400 hover:bg-cyan-500 hover:text-black font-bold py-2 px-6 rounded transition"
           >
             Entrar em Contato
           </a>
