@@ -35,7 +35,7 @@ export default function NewProjectPage() {
     formData.append("repoUrl", repoUrl);
     formData.append("deployInput", deployInput);
     formData.append("type", type);
-    formData.append("technologies", technologies, JSON.stringify(technologies));
+    formData.append("technologies", JSON.stringify(technologies));
 
     if (image) {
       formData.append("image", image);
@@ -211,15 +211,22 @@ export default function NewProjectPage() {
               htmlFor="setType"
               className="block text-sm font-medium text-gray-300"
             >
-              Tipo
+              Tipo / Categoria do Projeto
             </label>
-            <input
-              value={type}
-              type="text"
+            <select
+              name="type"
               id="setType"
-              onChange={(e) => setType(e.target.value)}
-              className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
-            ></input>
+              value={project.type || type} 
+              onChange={handleChange || ((e) => setType(e.target.value))}
+              required
+              className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white focus:border-cyan-500 focus:outline-none"
+            >
+              <option value="">Selecione uma categoria...</option>
+              <option value="Web Application">Web Application</option>
+              <option value="Full-Stack Web App">Full-Stack Web App</option>
+              <option value="Desktop App">Desktop App</option>
+              <option value="Mobile App">Mobile App</option>
+            </select>
           </div>
 
           {error && <p className="text-red-500">{error}</p>}

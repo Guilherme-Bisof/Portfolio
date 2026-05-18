@@ -146,14 +146,53 @@ export default function EditProjectPage() {
             ></textarea>
           </div>
           <div>
-            <label htmlFor="image" className="block text-sm font-medium">
-              Selecionar nova imagem (Opcional)
+            <label
+              htmlFor="image"
+              className="block text-sm font-medium text-gray-300"
+            >
+              Imagem do Projeto
             </label>
+
+
+            {project.image && !newImage && (
+              <div className="mt-2 mb-3">
+                <p className="text-xs text-gray-400 mb-1">
+                  Imagem atual em produção:
+                </p>
+                <img
+                  src={
+                    project.image.startsWith("http")
+                      ? project.image
+                      : `${process.env.NEXT_PUBLIC_API_URL}${project.image}`
+                  }
+                  alt="Preview atual"
+                  className="h-24 w-40 object-cover rounded border border-gray-700 shadow-sm"
+                />
+              </div>
+            )}
+
+
+            {newImage && (
+              <div className="mt-2 mb-3">
+                <p className="text-xs text-cyan-400 mb-1">
+                  Nova imagem selecionada (Ainda não salva):
+                </p>
+                <img
+                  src={URL.createObjectURL(newImage)}
+                  alt="Novo preview"
+                  className="h-24 w-40 object-cover rounded border border-cyan-500 shadow-[0_0_10px_rgba(0,255,255,0.2)]"
+                />
+              </div>
+            )}
+
             <input
               type="file"
               name="image"
-              onChange={(e) => setNewImage(e.target.files[0])}
-              className="mt-1 block w-full bg-gray-700 rounded-md p-2"
+              accept="image/*"
+              onChange={(e) =>
+                setNewImage(e.target.files ? e.target.files[0] : null)
+              }
+              className="mt-1 block w-full bg-gray-700 rounded-md p-2 text-sm text-gray-300 file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-cyan-600 file:text-black hover:file:bg-cyan-700 file:cursor-pointer"
             />
           </div>
           <div>
@@ -220,15 +259,22 @@ export default function EditProjectPage() {
               htmlFor="setType"
               className="block text-sm font-medium text-gray-300"
             >
-              Tipo
+              Tipo / Categoria do Projeto
             </label>
-            <input
-              type="text"
+            <select
               name="type"
-              value={project.type || ""}
-              onChange={handleChange}
-              className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
-            ></input>
+              id="setType"
+              value={project.type || type} 
+              onChange={handleChange || ((e) => setType(e.target.value))}
+              required
+              className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white focus:border-cyan-500 focus:outline-none"
+            >
+              <option value="">Selecione uma categoria...</option>
+              <option value="Web Application">Web Application</option>
+              <option value="Full-Stack Web App">Full-Stack Web App</option>
+              <option value="Desktop App">Desktop App</option>
+              <option value="Mobile App">Mobile App</option>
+            </select>
           </div>
 
           {error && <p className="text-red-500">{error}</p>}
