@@ -19,6 +19,9 @@ export default function EditProjectPage() {
     deployInput: "",
     technologies: [],
     type: "",
+    challenge: "",
+    solution: "",
+    learned: "",
   });
   const [techInput, setTechInput] = useState("");
   const [newImage, setNewImage] = useState(null);
@@ -86,6 +89,9 @@ export default function EditProjectPage() {
     formData.append("deployInput", project.deployInput || "");
     formData.append("type", project.type || "");
     formData.append("technologies", JSON.stringify(project.technologies));
+    formData.append("challenge", project.challenge || "");
+    formData.append("solution", project.solution || "");
+    formData.append("learned", project.learned || "");
 
     if (newImage) {
       formData.append("image", newImage);
@@ -153,7 +159,6 @@ export default function EditProjectPage() {
               Imagem do Projeto
             </label>
 
-
             {project.image && !newImage && (
               <div className="mt-2 mb-3">
                 <p className="text-xs text-gray-400 mb-1">
@@ -170,7 +175,6 @@ export default function EditProjectPage() {
                 />
               </div>
             )}
-
 
             {newImage && (
               <div className="mt-2 mb-3">
@@ -264,7 +268,7 @@ export default function EditProjectPage() {
             <select
               name="type"
               id="setType"
-              value={project.type || type} 
+              value={project.type || type}
               onChange={handleChange || ((e) => setType(e.target.value))}
               required
               className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white focus:border-cyan-500 focus:outline-none"
@@ -275,6 +279,54 @@ export default function EditProjectPage() {
               <option value="Desktop App">Desktop App</option>
               <option value="Mobile App">Mobile App</option>
             </select>
+          </div>
+
+          <div>
+            <label
+              htmlFor="challenge"
+              className="block text-sm font-medium text-gray-300"
+            >
+              ⚠️ O Desafio / Problema (Opcional)
+            </label>
+            <textarea
+              name="challenge"
+              rows="3"
+              value={project.challenge || ""}
+              onChange={handleChange}
+              className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="solution"
+              className="block text-sm font-medium text-gray-300"
+            >
+              🚀 Solução de Engenharia (Opcional)
+            </label>
+            <textarea
+              name="solution"
+              rows="3"
+              value={project.solution || ""}
+              onChange={handleChange}
+              className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="learned"
+              className="block text-sm font-medium text-gray-300"
+            >
+              🧠 Lições Aprendidas & Takeaways (Opcional)
+            </label>
+            <textarea
+              name="learned"
+              rows="3"
+              value={project.learned || ""}
+              onChange={handleChange}
+              className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white"
+            />
           </div>
 
           {error && <p className="text-red-500">{error}</p>}

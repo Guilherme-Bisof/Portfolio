@@ -166,8 +166,17 @@ app.post(
   upload.single("image"),
   async (req, res) => {
     try {
-      const { title, description, repoUrl, technologies, deployInput, type } =
-        req.body;
+      const {
+        title,
+        description,
+        repoUrl,
+        technologies,
+        deployInput,
+        type,
+        challenge,
+        solution,
+        learned,
+      } = req.body;
 
       const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
 
@@ -175,6 +184,7 @@ app.post(
         typeof technologies === "string"
           ? JSON.parse(technologies)
           : technologies;
+
       const newProject = await prisma.project.create({
         data: {
           title,
@@ -184,6 +194,9 @@ app.post(
           technologies: parsedTechnologies,
           deployInput,
           type,
+          challenge,
+          solution,
+          learned,
         },
       });
       res.status(201).json(newProject);
@@ -212,12 +225,16 @@ app.put(
         deployInput,
         type,
         image,
+        challenge,
+        solution,
+        learned,
       } = req.body;
 
       const parsedTechnologies =
         typeof technologies === "string"
           ? JSON.parse(technologies)
           : technologies;
+
       const updateData = {
         title,
         description,
@@ -226,6 +243,9 @@ app.put(
         technologies: parsedTechnologies,
         type,
         image,
+        challenge,
+        solution,
+        learned,
       };
 
       if (req.file) {
@@ -238,6 +258,7 @@ app.put(
       });
       res.json(updatedProject);
     } catch (error) {
+      console.error("ERRO AO ATUALIZAR PROJETO:", error);
       res
         .status(500)
         .json({ message: "Não foi possível atualizar o projeto." });

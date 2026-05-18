@@ -3,27 +3,31 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql" 
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Project {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String   @db.Text
-  image    String?  
-  repoUrl     String?
-  deployInput String?
+  id           Int      @id @default(autoincrement())
+  title        String
+  description  String
+  repoUrl      String?
+  deployInput  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
   technologies String[]
-  type        String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  type         String?
+  image        String?
+
+  challenge    String?  @db.Text
+  solution     String?  @db.Text
+  learned      String?  @db.Text
 }
 
-model User{
-  id Int @id @default(autoincrement())
-  email String @unique
-  password String
-  role String @default("user")
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
   createdAt DateTime @default(now())
+  role      String   @default("user")
 }

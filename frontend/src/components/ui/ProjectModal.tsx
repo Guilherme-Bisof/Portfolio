@@ -60,7 +60,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
         {/* Conteúdo rolável */}
         <div className="p-6 overflow-y-auto space-y-8">
-          {/* Imagem */}
+          {/* Imagem (Mantém igual você já tem) */}
           {project.image && (
             <img
               src={imageSrc}
@@ -72,35 +72,48 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             />
           )}
 
-          {/* STORYTELLING BLOCK 1: O DESAFIO */}
-          <div className="space-y-2 border-l-2 border-amber-500/50 pl-4">
-            <h4 className="font-mono text-sm uppercase tracking-wider text-amber-400 flex items-center gap-2">
-              <span>⚠️</span> O Desafio / Problema
-            </h4>
+          {/* Se não houver nenhum campo preenchido no banco, podemos mostrar a descrição padrão */}
+          {!project.challenge && !project.solution && !project.learned && (
             <p className="text-gray-300 text-sm md:text-base leading-relaxed">
-              {challengeText}
+              {project.description}
             </p>
-          </div>
+          )}
 
-          {/* STORYTELLING BLOCK 2: A SOLUÇÃO */}
-          <div className="space-y-2 border-l-2 border-cyan-500/50 pl-4">
-            <h4 className="font-mono text-sm uppercase tracking-wider text-cyan-400 flex items-center gap-2">
-              <span>🚀</span> Solução Engenharia de Software
-            </h4>
-            <p className="text-gray-300 text-sm md:text-base leading-relaxed">
-              {solutionText}
-            </p>
-          </div>
+          {/* STORYTELLING BLOCK 1: O DESAFIO (Só aparece se você digitar algo no Admin) */}
+          {project.challenge && (
+            <div className="space-y-2 border-l-2 border-amber-500/50 pl-4 animate-fadeIn">
+              <h4 className="font-mono text-sm uppercase tracking-wider text-amber-400 flex items-center gap-2">
+                <span>⚠️</span> O Desafio / Problema
+              </h4>
+              <p className="text-gray-300 text-sm md:text-base leading-relaxed">
+                {project.challenge}
+              </p>
+            </div>
+          )}
 
-          {/* STORYTELLING BLOCK 3: APRENDIZADO */}
-          <div className="space-y-2 border-l-2 border-emerald-500/50 pl-4">
-            <h4 className="font-mono text-sm uppercase tracking-wider text-emerald-400 flex items-center gap-2">
-              <span>🧠</span> Lições Aprendidas & Takeaways
-            </h4>
-            <p className="text-gray-300 text-sm md:text-base leading-relaxed">
-              {learnedText}
-            </p>
-          </div>
+          {/* STORYTELLING BLOCK 2: A SOLUÇÃO (Só aparece se você digitar algo no Admin) */}
+          {project.solution && (
+            <div className="space-y-2 border-l-2 border-cyan-500/50 pl-4 animate-fadeIn">
+              <h4 className="font-mono text-sm uppercase tracking-wider text-cyan-400 flex items-center gap-2">
+                <span>🚀</span> Solução Engenharia de Software
+              </h4>
+              <p className="text-gray-300 text-sm md:text-base leading-relaxed">
+                {project.solution}
+              </p>
+            </div>
+          )}
+
+          {/* STORYTELLING BLOCK 3: APRENDIZADO (Só aparece se você digitar algo no Admin) */}
+          {project.learned && (
+            <div className="space-y-2 border-l-2 border-emerald-500/50 pl-4 animate-fadeIn">
+              <h4 className="font-mono text-sm uppercase tracking-wider text-emerald-400 flex items-center gap-2">
+                <span>🧠</span> Lições Aprendidas & Takeaways
+              </h4>
+              <p className="text-gray-300 text-sm md:text-base leading-relaxed">
+                {project.learned}
+              </p>
+            </div>
+          )}
 
           <hr className="border-gray-800" />
 

@@ -19,6 +19,9 @@ export default function NewProjectPage() {
   const [technologies, setTechnologies] = useState([]);
   const [error, setError] = useState("");
   const [type, setType] = useState("");
+  const [challenge, setChallenge] = useState("");
+  const [solution, setSolution] = useState("");
+  const [learned, setLearned] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,6 +39,10 @@ export default function NewProjectPage() {
     formData.append("deployInput", deployInput);
     formData.append("type", type);
     formData.append("technologies", JSON.stringify(technologies));
+
+    formData.append("challenge", challenge);
+    formData.append("solution", solution);
+    formData.append("learned", learned);
 
     if (image) {
       formData.append("image", image);
@@ -216,7 +223,7 @@ export default function NewProjectPage() {
             <select
               name="type"
               id="setType"
-              value={project.type || type} 
+              value={project.type || type}
               onChange={handleChange || ((e) => setType(e.target.value))}
               required
               className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white focus:border-cyan-500 focus:outline-none"
@@ -227,6 +234,57 @@ export default function NewProjectPage() {
               <option value="Desktop App">Desktop App</option>
               <option value="Mobile App">Mobile App</option>
             </select>
+          </div>
+
+          <div>
+            <label
+              htmlFor="challenge"
+              className="block text-sm font-medium text-gray-300"
+            >
+              O Desafio / Problema (Opcional)
+            </label>
+            <textarea
+              id="challenge"
+              rows="3"
+              value={challenge}
+              onChange={(e) => setChallenge(e.target.value)}
+              className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white"
+              placeholder="Qual problema esse sistema resolve?"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="solution"
+              className="block text-sm font-medium text-gray-300"
+            >
+              Solução de Engenharia (Opcional)
+            </label>
+            <textarea
+              id="solution"
+              rows="3"
+              value={solution}
+              onChange={(e) => setSolution(e.target.value)}
+              className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white"
+              placeholder="Como você estruturou a arquitetura do software para resolver o problema?"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="learned"
+              className="block text-sm font-medium text-gray-300"
+            >
+              Lições Aprendidas & Takeaways (Opcional)
+            </label>
+            <textarea
+              id="learned"
+              rows="3"
+              value={learned}
+              onChange={(e) => setLearned(e.target.value)}
+              className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white"
+              placeholder="O que você aprendeu ou dominou de novo criando este projeto?"
+            />
           </div>
 
           {error && <p className="text-red-500">{error}</p>}
