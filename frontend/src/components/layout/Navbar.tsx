@@ -86,23 +86,35 @@ export default function Navbar() {
             ))}
           </ul>
         </nav>
-
-        {/*  LOGIN DO ADMIN */}
-        {/*
-        <div className="mt-auto">
-          <h3 className="text-xs uppercase text-gray-500 font-bold mb-4">
-            Admin
-          </h3>
-          <Link
-            href="/admin/login"
-            className="flex items-center space-x-3 hover:text-cyan-400 transition-colors"
+        
+        <div className="mt-8 px-2">
+          <a
+            href="/Curiculo-Guilherme-Desenvolvedor-FullStack.pdf"
+            download="Curiculo-Guilherme-Desenvolvedor-FullStack.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center justify-center gap-2 w-full bg-cyan-950/30 border border-cyan-800/60 hover:border-cyan-400 hover:bg-cyan-900/50 text-cyan-400 text-sm font-medium py-2.5 px-4 rounded-lg transition-all duration-300"
           >
-            <span>Acessar Painel</span>
-          </Link>
-        </div> */}
+            <svg
+              className="w-4 h-4 group-hover:-translate-y-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+              />
+            </svg>
+            Baixar Currículo
+          </a>
+        </div>
 
         {/* Copyright */}
-        <div className="pt-8 text-center text-xs text-gray-600">
+        <div className="mt-auto pt-8 text-center text-xs text-gray-600">
           © 2026 Guilherme Bisof
         </div>
       </aside>
