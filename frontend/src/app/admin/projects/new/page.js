@@ -223,13 +223,13 @@ export default function NewProjectPage() {
             <select
               name="type"
               id="setType"
-              value={project.type || type}
-              onChange={handleChange || ((e) => setType(e.target.value))}
+              value={type} 
+              onChange={(e) => setType(e.target.value)} 
               required
               className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white focus:border-cyan-500 focus:outline-none"
             >
               <option value="">Selecione uma categoria...</option>
-              <option value="Web Application">Web Application</option>
+              <option value="WEB Application">WEB Application</option>
               <option value="Full-Stack Web App">Full-Stack Web App</option>
               <option value="Desktop App">Desktop App</option>
               <option value="Mobile App">Mobile App</option>
