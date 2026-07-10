@@ -20,7 +20,7 @@ interface ComplementaryCourse {
 const graduation: Graduation = {
   course: "Análise e Desenvolvimento de Sistemas",
   institution: "UniCesumar - Tatuí/SP",
-  period: "Jun 2028",
+  period: "Set. 2025 - Jun. 2028",
   description:
     "Foco em desenvolvimento de sistemas escaláveis e arquitetura de aplicações reais.",
   tags: ["Engenharia de Software", "Sistemas", "Projetos Reais"],

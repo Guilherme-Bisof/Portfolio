@@ -12,18 +12,23 @@ interface Experience {
 
 const experiences: Experience[] = [
   {
+    role: "Estagiário de Projeto",
+    company: "Uotz - Inteligência de Mercado",
+    period: "Set. 2025 — Presente",
+    description: "• Elaboração de cenário de testes em processos, serviços e soluções digitais;\n• Execução de testes de validação das jornadas de produtos digitais e telecom (Quality Assurance e Customer Experience);\n• Confecção de relatórios, análise de resultados e report para área demandante e para os clientes."
+  },
+  {
+    role: "Estagiário Administrativo",
+    company: "Justiça Restaurativa",
+    period: "Maio 2025 - Set. 2025",
+    description: "Atuação focada na modernização do sistema web de gestão de processos e agendamentos institucionais.\n• Desenvolvimento full-stack da plataforma utilizando PHP, MySQL e Bootstrap.\n• Redução de 40% no tempo de triagem via digitalização e indexação de documentos.\n• Segurança avançada: proteção contra SQL Injection (Prepared Statements), criptografia de senhas e controle de acesso (RBAC)."
+  },
+  {
     role: "Desenvolvedor Full-Stack",
     company: "Freelancer / Projetos Pessoais",
     period: "2023 — Presente",
     description:
       "Desenvolvimento de sistemas escaláveis, incluindo plataformas de gestão offline com Electron e aplicações web modernas utilizando Next.js, Node.js e bancos de dados relacionais.",
-  },
-  {
-    role: "Estudante de Tecnologia",
-    company: "Foco em Engenharia de Software",
-    period: "2022 — 2023",
-    description:
-      "Imersão em arquitetura de software, versionamento de código, e construção de bases sólidas em lógica de programação e POO.",
   },
 ];
 
@@ -71,7 +76,6 @@ export default function ExperienceSection() {
               variants={sectionVariant}
               className="flex flex-col md:flex-row gap-4 md:gap-12 group"
             >
-              {/* Período em destaque na esquerda */}
               <div className="md:w-1/4 shrink-0 pt-1">
                 <span className="text-neutral-500 font-mono text-sm uppercase tracking-widest group-hover:text-neutral-300 transition-colors">
                   {exp.period}
@@ -86,7 +90,7 @@ export default function ExperienceSection() {
                 <h4 className="text-lg text-neutral-400 font-medium mb-4">
                   {exp.company}
                 </h4>
-                <p className="text-neutral-400 font-light leading-relaxed">
+                <p className="text-neutral-400 font-light leading-relaxed whitespace-pre-line">
                   {exp.description}
                 </p>
               </div>
