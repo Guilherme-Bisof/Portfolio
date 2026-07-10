@@ -13,7 +13,6 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const prisma = new PrismaClient();
 
-// Configurar multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "./public/uploads"));
@@ -41,7 +40,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "./public")));
 
-// Middleware para verificar JWT
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];

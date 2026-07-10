@@ -1,123 +1,53 @@
 "use client";
 
-import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-
-interface NavLink {
-  name: string;
-  href: string;
-}
-
-const navLinks: NavLink[] = [
-  { name: "Sobre Mim", href: "/#sobre" },
-  { name: "Educação", href: "/#educacao" },
-  { name: "Habilidades", href: "/#habilidades" },
-  { name: "Projetos", href: "/#projetos" },
-  { name: "Contato", href: "/#contato" },
-];
+import { motion } from "framer-motion";
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
-
   return (
-    <>
-      {/* Botão mobile */}
-      <button
-        className="fixed top-4 left-4 z-50 md:hidden bg-gray-900 text-white p-2 rounded-md border border-gray-700"
-        onClick={() => setMenuOpen(!menuOpen)}
-        aria-label="Abrir Menu"
-      >
-        <div
-          className={`w-6 h-0.5 bg-white mb-1.5 transition-transform ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
-        />
-        <div
-          className={`w-6 h-0.5 bg-white mb-1.5 transition-opacity ${menuOpen ? "opacity-0" : ""}`}
-        />
-        <div
-          className={`w-6 h-0.5 bg-white transition-transform ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
-        />
-      </button>
+    <motion.nav
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-neutral-900"
+    >
+      <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="text-xl font-extrabold text-white tracking-tighter"
+        >
+          Guilherme<span className="text-neutral-500">.</span>
+        </Link>
 
-      {/* Overlay mobile */}
-      {menuOpen && (
-        <div
-          className="fixed inset-0 bg-black/60 z-30 md:hidden"
-          onClick={() => setMenuOpen(false)}
-        />
-      )}
+        {/* Links de Navegação */}
+        <ul className="hidden md:flex space-x-8 text-sm font-medium text-neutral-400">
+          <li className="hover:text-white transition-colors cursor-pointer">
+            <a href="#sobre">Sobre</a>
+          </li>
+          <li className="hover:text-white transition-colors cursor-pointer">
+            <a href="#educacao">Educação</a>
+          </li>
+          <li className="hover:text-white transition-colors cursor-pointer">
+            <a href="#experiencia">Experiência</a></li>
+          <li className="hover:text-white transition-colors cursor-pointer">
+            <a href="#projetos">Projetos</a>
+          </li>
+          <li className="hover:text-white transition-colors cursor-pointer">
+            <a href="#contato">Contato</a>
+          </li>
+        </ul>
 
-      <aside
-        className={`
-          fixed top-0 left-0 h-screen w-64 bg-gray-900 text-white flex flex-col p-8 border-r border-gray-700 z-40
-          transition-transform duration-300
-          ${menuOpen ? "translate-x-0" : "-translate-x-full"}
-          md:translate-x-0
-        `}
-      >
-        {/* Perfil */}
-        <div className="text-center mb-12">
-          <Image
-            src="/perfil.jpg"
-            alt="Foto de Guilherme Bisof"
-            width={100}
-            height={100}
-            className="rounded-full mx-auto mb-4 border-2 border-cyan-400"
-          />
-          <h2 className="text-xl font-bold">Guilherme Bisof</h2>
-          <p className="text-sm text-gray-400">Desenvolvedor Full-Stack</p>
-        </div>
-
-        {/* Navegação Principal */}
-        <nav>
-          <h3 className="text-xs uppercase text-gray-500 font-bold mb-4">
-            Navegação
-          </h3>
-          <ul className="space-y-4">
-            {navLinks.map((link) => (
-              <li key={link.name}>
-                <Link
-                  href={link.href}
-                  className="flex items-center space-x-3 hover:text-cyan-400 transition-colors"
-                >
-                  <span>{link.name}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        
-        <div className="mt-8 px-2">
-          <a
-            href="/Curiculo-Guilherme-Desenvolvedor-FullStack.pdf"
-            download="Curiculo-Guilherme-Desenvolvedor-FullStack.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-center gap-2 w-full bg-cyan-950/30 border border-cyan-800/60 hover:border-cyan-400 hover:bg-cyan-900/50 text-cyan-400 text-sm font-medium py-2.5 px-4 rounded-lg transition-all duration-300"
-          >
-            <svg
-              className="w-4 h-4 group-hover:-translate-y-1 transition-transform"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-              />
-            </svg>
-            Baixar Currículo
-          </a>
-        </div>
-
-        {/* Copyright */}
-        <div className="mt-auto pt-8 text-center text-xs text-gray-600">
-          © 2026 Guilherme Bisof
-        </div>
-      </aside>
-    </>
+        {/* Botão de Currículo */}
+        <motion.a
+          whileHover={{ y: -2 }}
+          href="/Curiculo-Guilherme-Desenvolvedor-FullStack.pdf"
+          download
+          className="px-5 py-2 border border-neutral-800 text-white rounded-full hover:bg-neutral-900 transition-colors text-xs tracking-widest uppercase font-medium flex items-center gap-2"
+        >
+          Currículo <span className="text-neutral-500">↓</span>
+        </motion.a>
+      </div>
+    </motion.nav>
   );
 }

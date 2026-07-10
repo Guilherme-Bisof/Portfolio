@@ -3,6 +3,7 @@
 import Link from "next/link";
 import React from "react";
 import { Project } from "@/types/project";
+import { motion } from "framer-motion";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -20,175 +21,144 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
       : `${process.env.NEXT_PUBLIC_API_URL}${project.image}`
     : "";
 
-  // Lógica de Fallback: se não houver os campos específicos no banco,
-  // usamos a descrição atual ou um texto padrão inteligente.
-  const challengeText = project.challenge || project.description;
-  const solutionText =
-    project.solution ||
-    `O sistema foi desenvolvido utilizando uma arquitetura moderna focada em performance, aplicando as tecnologias descritas abaixo para garantir a escalabilidade e a melhor experiência de uso prática.`;
-  const learnedText =
-    project.learned ||
-    `Consolidação de conceitos práticos de arquitetura de software, gerenciamento de estados no ecossistema de produção real e tratamento de fluxos assíncronos de dados.`;
-
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       onClick={onClose}
-      className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
+      className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4 sm:p-6 backdrop-blur-sm"
     >
-      {/* Container principal */}
-      <div
+      <motion.div
+        initial={{ scale: 0.98, opacity: 0, y: 10 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         onClick={handleContentClick}
-        className="bg-gray-900 w-full max-w-3xl rounded-lg border border-cyan-400/30 shadow-[0_0_25px_rgba(0,255,255,0.2)] flex flex-col max-h-[90vh]"
+        className="bg-[#111] w-full max-w-3xl rounded-2xl border border-neutral-800 shadow-2xl flex flex-col max-h-[90vh] overflow-hidden"
       >
-        {/* Título e botão de fechar */}
-        <div className="flex justify-between items-center p-6 border-b border-gray-800">
+        {/* Cabeçalho */}
+        <div className="flex justify-between items-start p-8 border-b border-neutral-900 bg-[#0a0a0a]">
           <div>
-            <span className="text-xs font-mono uppercase tracking-widest text-cyan-500 block mb-1">
+            <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 block mb-3">
               {project.type || "Software Case"}
             </span>
-            <h2 className="text-2xl md:text-3xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
               {project.title}
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-cyan-400 text-3xl transition-colors p-2"
+            className="text-neutral-500 hover:text-white text-2xl transition-colors p-2"
           >
-            &times;
+            ✕
           </button>
         </div>
 
         {/* Conteúdo rolável */}
-        <div className="p-6 overflow-y-auto space-y-8">
-          {/* Imagem (Mantém igual você já tem) */}
+        <div className="p-8 overflow-y-auto space-y-12 custom-scrollbar">
+          {/* Imagem */}
           {project.image && (
-            <img
-              src={imageSrc}
-              className="w-full h-48 md:h-64 object-cover rounded-lg border border-cyan-400/20 shadow-[0_0_15px_rgba(0,255,255,0.1)] transition-transform duration-300 hover:scale-[1.01]"
-              alt={project.title}
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).style.display = "none";
-              }}
-            />
+            <div className="overflow-hidden rounded-xl border border-neutral-800">
+              <img
+                src={imageSrc}
+                className="w-full h-56 md:h-80 object-cover"
+                alt={project.title}
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).style.display = "none";
+                }}
+              />
+            </div>
           )}
 
-          {/* Se não houver nenhum campo preenchido no banco, podemos mostrar a descrição padrão */}
-          {!project.challenge && !project.solution && !project.learned && (
-            <p className="text-gray-300 text-sm md:text-base leading-relaxed">
-              {project.description}
-            </p>
-          )}
-
-          {/* STORYTELLING BLOCK 1: O DESAFIO (Só aparece se você digitar algo no Admin) */}
-          {project.challenge && (
-            <div className="space-y-2 border-l-2 border-amber-500/50 pl-4 animate-fadeIn">
-              <h4 className="font-mono text-sm uppercase tracking-wider text-amber-400 flex items-center gap-2">
-                <span>⚠️</span> O Desafio / Problema
-              </h4>
-              <p className="text-gray-300 text-sm md:text-base leading-relaxed">
-                {project.challenge}
+          {/* Seção Editorial */}
+          <div className="space-y-10">
+            {!project.challenge && !project.solution && !project.learned ? (
+              <p className="text-neutral-300 text-lg font-light leading-relaxed whitespace-pre-wrap">
+                {project.description}
               </p>
-            </div>
-          )}
+            ) : (
+              <>
+                {project.challenge && (
+                  <div>
+                    <h4 className="text-sm font-mono uppercase tracking-widest text-neutral-500 mb-4">
+                      01. O Desafio
+                    </h4>
+                    <p className="text-neutral-300 text-base font-light leading-relaxed whitespace-pre-wrap">
+                      {project.challenge}
+                    </p>
+                  </div>
+                )}
+                {project.solution && (
+                  <div>
+                    <h4 className="text-sm font-mono uppercase tracking-widest text-neutral-500 mb-4">
+                      02. A Solução
+                    </h4>
+                    <p className="text-neutral-300 text-base font-light leading-relaxed whitespace-pre-wrap">
+                      {project.solution}
+                    </p>
+                  </div>
+                )}
+                {project.learned && (
+                  <div>
+                    <h4 className="text-sm font-mono uppercase tracking-widest text-neutral-500 mb-4">
+                      03. Aprendizados
+                    </h4>
+                    <p className="text-neutral-300 text-base font-light leading-relaxed whitespace-pre-wrap">
+                      {project.learned}
+                    </p>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
 
-          {/* STORYTELLING BLOCK 2: A SOLUÇÃO (Só aparece se você digitar algo no Admin) */}
-          {project.solution && (
-            <div className="space-y-2 border-l-2 border-cyan-500/50 pl-4 animate-fadeIn">
-              <h4 className="font-mono text-sm uppercase tracking-wider text-cyan-400 flex items-center gap-2">
-                <span>🚀</span> Solução Engenharia de Software
-              </h4>
-              <p className="text-gray-300 text-sm md:text-base leading-relaxed">
-                {project.solution}
-              </p>
-            </div>
-          )}
+          <hr className="border-neutral-900" />
 
-          {/* STORYTELLING BLOCK 3: APRENDIZADO (Só aparece se você digitar algo no Admin) */}
-          {project.learned && (
-            <div className="space-y-2 border-l-2 border-emerald-500/50 pl-4 animate-fadeIn">
-              <h4 className="font-mono text-sm uppercase tracking-wider text-emerald-400 flex items-center gap-2">
-                <span>🧠</span> Lições Aprendidas & Takeaways
-              </h4>
-              <p className="text-gray-300 text-sm md:text-base leading-relaxed">
-                {project.learned}
-              </p>
-            </div>
-          )}
-
-          <hr className="border-gray-800" />
-
-          {/* Grid de Metadados (Responsabilidades + Techs) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Responsabilidades */}
-            <div>
-              <h4 className="font-semibold text-base text-gray-400 mb-3 uppercase tracking-wider text-xs">
-                Responsabilidades
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                <span className="bg-gray-800 border border-gray-700 text-cyan-300 text-xs px-3 py-1 rounded-full">
-                  Full-Stack Architecture
-                </span>
-                <span className="bg-gray-800 border border-gray-700 text-cyan-300 text-xs px-3 py-1 rounded-full">
-                  Database Design
-                </span>
-                <span className="bg-gray-800 border border-gray-700 text-cyan-300 text-xs px-3 py-1 rounded-full">
-                  Production Deployment
-                </span>
-              </div>
-            </div>
-
-            {/* Tecnologias */}
-            <div>
-              <h4 className="font-semibold text-base text-gray-400 mb-3 uppercase tracking-wider text-xs">
+          {/* Stack e Links */}
+          <div className="flex flex-col md:flex-row gap-8 justify-between items-start">
+            <div className="flex-1">
+              <h4 className="font-mono text-neutral-500 mb-4 uppercase tracking-widest text-xs">
                 Stack Tecnológica
               </h4>
               <div className="flex flex-wrap gap-2">
-                {project.technologies && project.technologies.length > 0 ? (
-                  project.technologies.map((tech, index) => (
-                    <span
-                      key={index}
-                      className="bg-cyan-950/40 border border-cyan-800/60 text-cyan-400 text-xs px-3 py-1 rounded-full font-mono"
-                    >
-                      {tech}
-                    </span>
-                  ))
-                ) : (
-                  <span className="text-gray-500 text-xs">
-                    Nenhuma tecnologia informada.
+                {project.technologies?.map((tech, index) => (
+                  <span
+                    key={index}
+                    className="border border-neutral-800 text-neutral-400 text-xs px-3 py-1.5 rounded-full font-medium"
+                  >
+                    {tech}
                   </span>
-                )}
+                ))}
               </div>
             </div>
-          </div>
 
-          {/* Botões de Ação */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-4">
-            {project.repoUrl && (
-              <Link
-                href={project.repoUrl}
-                target="_blank"
-                className="flex-1 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-bold py-2.5 px-6 rounded transition-all text-center flex items-center justify-center gap-2 text-sm"
-              >
-                Ver Código no GitHub
-              </Link>
-            )}
-
-            {project.deployInput && (
-              <Link
-                href={
-                  project.deployInput.startsWith("http")
-                    ? project.deployInput
-                    : `https://${project.deployInput}`
-                }
-                target="_blank"
-                className="flex-1 bg-cyan-600 hover:bg-cyan-700 shadow-[0_0_15px_rgba(0,255,255,0.2)] text-black font-bold py-2.5 px-6 rounded transition-all text-center flex items-center justify-center gap-2 text-sm"
-              >
-                Acessar Aplicação Real 🌐
-              </Link>
-            )}
+            <div className="flex flex-col gap-3 min-w-[200px] w-full md:w-auto">
+              {project.deployInput && (
+                <Link
+                  href={
+                    project.deployInput.startsWith("http")
+                      ? project.deployInput
+                      : `https://${project.deployInput}`
+                  }
+                  target="_blank"
+                  className="bg-white text-black hover:bg-neutral-200 font-bold py-3 px-6 rounded-lg transition-colors text-center text-sm"
+                >
+                  Projeto Ao Vivo ↗
+                </Link>
+              )}
+              {project.repoUrl && (
+                <Link
+                  href={project.repoUrl}
+                  target="_blank"
+                  className="bg-transparent border border-neutral-700 hover:border-neutral-500 text-white font-medium py-3 px-6 rounded-lg transition-colors text-center text-sm"
+                >
+                  Repositório ↗
+                </Link>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

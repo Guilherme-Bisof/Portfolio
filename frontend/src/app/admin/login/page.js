@@ -1,65 +1,99 @@
 "use client";
 
-import { useState } from 'react';
-import { useAuth } from '@/context/AuthContext';
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  // Estados e Contexto originais mantidos intactos
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const { login } = useAuth();
   const router = useRouter();
 
+  // Lógica de submissão do formulário original
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     const success = await login(email, password);
 
     if (success) {
-      router.push('/admin/dashboard'); // Redireciona para o painel após o login
+      router.push("/admin/dashboard");
     } else {
-      setError('Email ou senha inválidos.');
+      setError("Email ou senha inválidos.");
     }
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-gray-900 text-white">
-      <div className="w-full max-w-md">
-        <h1 className="text-4xl font-bold mb-8 text-center">Login Administrativo</h1>
-        <form onSubmit={handleSubmit} className="space-y-6 bg-gray-800 p-8 rounded-lg border border-gray-700">
+    // Fundo preto puro para a tela de login
+    <main className="flex min-h-screen flex-col items-center justify-center p-6 bg-black text-white">
+      {/* Container principal grafite com bordas sutis */}
+      <div className="bg-[#0a0a0a] border border-neutral-900 w-full max-w-md p-8 md:p-12 rounded-2xl shadow-2xl">
+        <div className="mb-10 text-center">
+          <h1 className="text-3xl font-extrabold text-white tracking-tight mb-2">
+            Painel de Acesso.
+          </h1>
+          <p className="text-neutral-500 font-light text-sm">
+            Área restrita à administração.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Campo de Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300">Email</label>
+            <label
+              htmlFor="email"
+              className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+            >
+              E-mail
+            </label>
             <input
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm p-3 focus:ring-cyan-500 focus:border-cyan-500"
+              // Estilos minimalistas: fundo um tom acima do grafite, sem bordas coloridas
+              className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors placeholder:text-neutral-700"
+              placeholder="admin@exemplo.com"
             />
           </div>
+
+          {/* Campo de Senha */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-300">Senha</label>
+            <label
+              htmlFor="password"
+              className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+            >
+              Senha
+            </label>
             <input
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm p-3 focus:ring-cyan-500 focus:border-cyan-500"
+              className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors placeholder:text-neutral-700"
+              placeholder="••••••••"
             />
           </div>
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-          
-          <div>
+          {/* Mensagem de Erro formatada de forma elegante */}
+          {error && (
+            <p className="text-red-400 bg-red-950/30 border border-red-900/50 p-3 rounded-lg text-sm text-center">
+              {error}
+            </p>
+          )}
+
+          {/* Botão de Submit Branco (Alto contraste) */}
+          <div className="pt-4">
             <button
               type="submit"
-              className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-md transition-colors"
+              className="w-full bg-white text-black font-bold py-3 px-4 rounded-lg hover:bg-neutral-200 transition-colors"
             >
-              Entrar
+              Autenticar
             </button>
           </div>
         </form>

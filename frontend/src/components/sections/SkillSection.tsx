@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import SkillCard from "../ui/SkillCard";
+import { motion, Variants } from "framer-motion";
 import {
   FaJs,
   FaReact,
@@ -44,51 +47,131 @@ const frontEndSkills: SkillItem[] = [
 const tools: SkillItem[] = [
   { icon: <FaGitAlt />, name: "Git" },
   { icon: <FaGithub />, name: "Github" },
-  { icon: <SiElectron />, name: "Electron (Desktop apps)" },
+  { icon: <SiElectron />, name: "Electron" },
   { icon: <SiPrisma />, name: "Prisma ORM" },
   { icon: <SiAxios />, name: "Axios" },
-  { icon: <SiVercel />, name: "Vercel (deploy)" },
-  { icon: <SiRailway />, name: "Railway (backend)" },
+  { icon: <SiVercel />, name: "Vercel" },
+  { icon: <SiRailway />, name: "Railway" },
 ];
+
+const sectionVariant: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+const containerVariant: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.05 },
+  },
+};
+
+const itemVariant: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+  },
+};
 
 export default function SkillsSection() {
   return (
     <section
       id="habilidades"
-      className="flex flex-col items-center py-24 bg-black text-white"
+      className="flex flex-col py-32 bg-black text-white"
     >
-      <div className="w-full max-w-4xl px-4">
-        <h1 className="text-3xl md:text-5xl font-extrabold mb-12 text-center text-cyan-400">
-          Habilidades
-        </h1>
-
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-6 text-white">Back-End</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {backEndSkills.map((skill) => (
-              <SkillCard key={skill.name} icon={skill.icon} name={skill.name} />
-            ))}
-          </div>
-        </div>
-
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-6 text-white">Front-End</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {frontEndSkills.map((skill) => (
-              <SkillCard key={skill.name} icon={skill.icon} name={skill.name} />
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <h2 className="text-3xl font-bold mb-6 text-white">
-            Ferramentas e Outros
+      <div className="w-full max-w-5xl mx-auto px-6 md:px-12">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={sectionVariant}
+          className="mb-24"
+        >
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+            Arsenal Técnico.
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {tools.map((tool) => (
-              <SkillCard key={tool.name} icon={tool.icon} name={tool.name} />
-            ))}
-          </div>
+          <p className="text-neutral-400 font-light text-lg max-w-2xl leading-relaxed">
+            Ferramentas e tecnologias que utilizo no dia a dia para construir
+            soluções robustas e escaláveis.
+          </p>
+        </motion.div>
+
+        <div className="space-y-24">
+          {/* Categoria: Back-End */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={containerVariant}
+          >
+            <h3 className="text-xl font-medium tracking-tight mb-8 text-neutral-300 border-b border-neutral-900 pb-4">
+              Back-End
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {backEndSkills.map((skill) => (
+                <motion.div
+                  key={skill.name}
+                  variants={itemVariant}
+                  className="h-full"
+                >
+                  <SkillCard icon={skill.icon} name={skill.name} />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Categoria: Front-End */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={containerVariant}
+          >
+            <h3 className="text-xl font-medium tracking-tight mb-8 text-neutral-300 border-b border-neutral-900 pb-4">
+              Front-End
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {frontEndSkills.map((skill) => (
+                <motion.div
+                  key={skill.name}
+                  variants={itemVariant}
+                  className="h-full"
+                >
+                  <SkillCard icon={skill.icon} name={skill.name} />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Categoria: Ferramentas */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={containerVariant}
+          >
+            <h3 className="text-xl font-medium tracking-tight mb-8 text-neutral-300 border-b border-neutral-900 pb-4">
+              Ferramentas e Fluxo
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {tools.map((tool) => (
+                <motion.div
+                  key={tool.name}
+                  variants={itemVariant}
+                  className="h-full"
+                >
+                  <SkillCard icon={tool.icon} name={tool.name} />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

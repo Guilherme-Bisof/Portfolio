@@ -1,62 +1,81 @@
+"use client";
+
 import React from "react";
-import { FaLinkedin, FaEnvelope, FaWhatsapp } from "react-icons/fa";
+import { motion, Variants } from "framer-motion";
 
-interface ContactButtonProps {
-  href: string;
-  icon: React.ReactNode;
-  text: string;
-}
-
-function ContactButton({ href, icon, text }: ContactButtonProps) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="bg-gray-800 border border-transparent hover:border-cyan-400/50 text-white font-semibold flex items-center justify-center gap-3 py-3 px-6 rounded-lg transition-all w-full sm:w-auto"
-    >
-      {icon}
-      {text}
-    </a>
-  );
-}
+const sectionVariant: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+  },
+};
 
 export default function ContactSection() {
-  const userLinkedin = "https://www.linkedin.com/in/guilhermebisof/";
-  const userWhats =
-    "https://api.whatsapp.com/send/?phone=5514981245716&text&type=phone_number&app_absent=0";
-
   return (
     <section
       id="contato"
-      className="flex flex-col items-center py-24 bg-black text-white"
+      className="flex flex-col py-32 bg-black text-white border-t border-neutral-900"
     >
-      <div className="w-full max-w-4xl px-4 text-center">
-        <div className="inline-block">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white">
-            Contatos
-          </h1>
-          <div className="h-1 w-2/3 bg-cyan-400 mt-2 mx-auto"></div>
-        </div>
+      <div className="w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-16">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={sectionVariant}
+        >
+          <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-white mb-6 leading-[1.1]">
+            Vamos <br className="hidden md:block" /> conversar.
+          </h2>
+          <p className="text-neutral-400 font-light text-lg max-w-md">
+            Sempre aberto a discutir novas oportunidades, arquitetura de
+            sistemas ou parcerias.
+          </p>
+        </motion.div>
 
-        <p className="max-w-xl mx-auto my-8 text-gray-400">
-          Gostou do que viu? Ficarei feliz em conectar com você. Sinta-se à
-          vontade para me contatar através de um dos canais abaixo.
-        </p>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={sectionVariant}
+          className="flex flex-col gap-6"
+        >
+          {/* Links */}
+          <a
+            href="https://www.linkedin.com/in/guilhermebisof/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-3xl md:text-4xl font-medium text-neutral-400 hover:text-white transition-colors flex items-center gap-4 group"
+          >
+            LinkedIn
+            <span className="text-2xl transform group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform text-neutral-700 group-hover:text-neutral-300">
+              ↗
+            </span>
+          </a>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
-          <ContactButton
-            href={userLinkedin}
-            icon={<FaLinkedin size={20} />}
-            text="LinkedIn"
-          />
+          <a
+            href="https://api.whatsapp.com/send/?phone=5514981245716&text&type=phone_number&app_absent=0"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-3xl md:text-4xl font-medium text-neutral-400 hover:text-white transition-colors flex items-center gap-4 group"
+          >
+            WhatsApp
+            <span className="text-2xl transform group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform text-neutral-700 group-hover:text-neutral-300">
+              ↗
+            </span>
+          </a>
 
-          <ContactButton
-            href={userWhats}
-            icon={<FaWhatsapp size={20} />}
-            text="Whatsapp"
-          />
-        </div>
+          <a
+            href="mailto:guilherme.bisoff@gmail.com"
+            className="text-3xl md:text-4xl font-medium text-neutral-400 hover:text-white transition-colors flex items-center gap-4 group"
+          >
+            E-mail
+            <span className="text-2xl transform group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform text-neutral-700 group-hover:text-neutral-300">
+              ↗
+            </span>
+          </a>
+        </motion.div>
       </div>
     </section>
   );

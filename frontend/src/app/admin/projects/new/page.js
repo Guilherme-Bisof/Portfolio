@@ -10,300 +10,361 @@ export default function NewProjectPage() {
   const { token } = useAuth();
   const router = useRouter();
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  // Estado inicial limpo para um novo projeto
+  const [project, setProject] = useState({
+    title: "",
+    description: "",
+    repoUrl: "",
+    deployInput: "",
+    technologies: [],
+    type: "",
+    challenge: "",
+    solution: "",
+    learned: "",
+  });
+
+  const [techInput, setTechInput] = useState("");
   const [image, setImage] = useState(null);
-  const [repoUrl, setRepoUrl] = useState("");
-  const [techInput, settechInput] = useState("");
-  const [deployInput, setdeployInput] = useState("");
-  const [technologies, setTechnologies] = useState([]);
   const [error, setError] = useState("");
-  const [type, setType] = useState("");
-  const [challenge, setChallenge] = useState("");
-  const [solution, setSolution] = useState("");
-  const [learned, setLearned] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-
-    if (!token) {
-      setError("Você não está autenticado");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("repoUrl", repoUrl);
-    formData.append("deployInput", deployInput);
-    formData.append("type", type);
-    formData.append("technologies", JSON.stringify(technologies));
-
-    formData.append("challenge", challenge);
-    formData.append("solution", solution);
-    formData.append("learned", learned);
-
-    if (image) {
-      formData.append("image", image);
-    }
-
-    // const newProject = {
-    //   title,
-    //   description,
-    //   image,
-    //   repoUrl,
-    //   deployInput,
-    //   technologies,
-    //   type,
-    // };
-
-    try {
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/projects`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      router.push("/admin/dashboard");
-    } catch (err) {
-      setError("Falha ao criar o projeto. Tente novamente.");
-      console.error(err);
-    }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProject((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleAddTecnology = (e) => {
     if (e.key === "Enter" || e.key === ",") {
       e.preventDefault();
-
       const value = techInput.trim();
 
       if (
         value &&
-        !technologies.some((t) => t.toLowerCase() === value.toLowerCase())
+        !project.technologies.some(
+          (t) => t.toLowerCase() === value.toLowerCase(),
+        )
       ) {
-        setTechnologies([...technologies, value]);
-        settechInput("");
+        setProject((prevState) => ({
+          ...prevState,
+          technologies: [...prevState.technologies, value],
+        }));
+        setTechInput("");
       }
     }
   };
 
-  return (
-    <main className="flex min-h-screen flex-col items-center p-8 bg-gray-900 text-white">
-      <div className="w-full max-w-2xl">
-        <h1 className="text-4xl font-bold mb-8">Adicionar Novo Projeto</h1>
+  const removeTechnology = (index) => {
+    setProject((prevState) => ({
+      ...prevState,
+      technologies: prevState.technologies.filter((_, i) => i !== index),
+    }));
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setIsSubmitting(true);
+
+    const formData = new FormData();
+    formData.append("title", project.title);
+    formData.append("description", project.description);
+    formData.append("repoUrl", project.repoUrl || "");
+    formData.append("deployInput", project.deployInput || "");
+    formData.append("type", project.type || "");
+    formData.append("technologies", JSON.stringify(project.technologies));
+    formData.append("challenge", project.challenge || "");
+    formData.append("solution", project.solution || "");
+    formData.append("learned", project.learned || "");
+
+    // Na criação, a imagem é obrigatória ou altamente recomendada
+    if (image) {
+      formData.append("image", image);
+    }
+
+    try {
+      // POST para criar um novo projeto
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/projects`,
+        formData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      console.log("Projeto criado:", response.data);
+      router.push("/admin/dashboard");
+    } catch (err) {
+      console.error("Erro na criação:", err.response?.data || err.message);
+      setError("Falha ao criar o projeto. Verifique os dados.");
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <main className="flex min-h-screen flex-col items-center p-6 md:p-12 bg-black text-white">
+      <div className="w-full max-w-3xl">
+        {/* Cabeçalho */}
+        <div className="mb-10">
+          <Link
+            href="/admin/dashboard"
+            className="text-neutral-500 hover:text-white transition-colors text-sm font-mono uppercase tracking-widest mb-6 inline-block"
+          >
+            ← Voltar ao Dashboard
+          </Link>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
+            Novo Projeto.
+          </h1>
+          <p className="text-neutral-500 font-light mt-2">
+            Adicione um novo trabalho ao seu portfólio.
+          </p>
+        </div>
+
+        {/* Formulário com Design Minimalista */}
         <form
           onSubmit={handleSubmit}
-          className="space-y-4 bg-gray-800 p-8 rounded-lg border border-gray-700"
+          className="space-y-8 bg-[#0a0a0a] p-8 md:p-10 rounded-2xl border border-neutral-900 shadow-2xl"
         >
+          {/* Título */}
           <div>
             <label
               htmlFor="title"
-              className="block text-sm font-medium text-gray-300"
+              className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
             >
-              Título
+              Título do Projeto
             </label>
             <input
               type="text"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              name="title"
+              value={project.title}
+              onChange={handleChange}
               required
-              className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="description"
-              className="block text-sm font-medium text-gray-300"
-            >
-              Descrição
-            </label>
-            <textarea
-              id="description"
-              rows="4"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-              className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
-            ></textarea>
-          </div>
-          <div>
-            <label
-              htmlFor="image"
-              className="block text-sm font-medium text-gray-300"
-            >
-              URL da Imagem (Opcional)
-            </label>
-            <input
-              type="file"
-              id="image"
-              onChange={(e) => setImage(e.target.files[0])}
-              className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="repoUrl"
-              className="block text-sm font-medium text-gray-300"
-            >
-              URL do Repositório (Opcional)
-            </label>
-            <input
-              type="text"
-              id="repoUrl"
-              value={repoUrl}
-              onChange={(e) => setRepoUrl(e.target.value)}
-              className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="deployInput"
-              className="block text-sm font-medium text-gray-300"
-            >
-              Link do Deploy
-            </label>
-            <input
-              type="text"
-              id="deployInput"
-              value={deployInput}
-              onChange={(e) => setdeployInput(e.target.value)}
-              className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="techInput"
-              className="block text-sm font-medium text-gray-300"
-            >
-              Tecnologias
-            </label>
-            <input
-              type="text"
-              id="techInput"
-              value={techInput}
-              onChange={(e) => settechInput(e.target.value)}
-              onKeyDown={handleAddTecnology}
-              className="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md p-2"
+              placeholder="Ex: Sistema de Gestão Financeira"
+              className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors placeholder:text-neutral-700"
             />
           </div>
 
-          <div className="flex flex-wrap gap-2 mt-3">
-            {technologies.map((tech, index) => (
-              <span
-                key={index}
-                className="flex items-center gap-2 bg-gray-700 text-cyan-300 text-sm px-3 py-1 rounded-full"
-              >
-                {tech}
-                <button
-                  type="button"
-                  onClick={() =>
-                    setTechnologies(technologies.filter((_, i) => i !== index))
-                  }
-                  className="text-gray-400 hover:text-white"
-                >
-                  &times;
-                </button>
-              </span>
-            ))}
-          </div>
-
+          {/* Categoria */}
           <div>
             <label
               htmlFor="setType"
-              className="block text-sm font-medium text-gray-300"
+              className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
             >
-              Tipo / Categoria do Projeto
+              Tipo / Categoria
             </label>
             <select
               name="type"
               id="setType"
-              value={type} 
-              onChange={(e) => setType(e.target.value)} 
+              value={project.type}
+              onChange={handleChange}
               required
-              className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white focus:border-cyan-500 focus:outline-none"
+              className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors appearance-none"
             >
               <option value="">Selecione uma categoria...</option>
-              <option value="WEB Application">WEB Application</option>
+              <option value="Web Application">Web Application</option>
               <option value="Full-Stack Web App">Full-Stack Web App</option>
               <option value="Desktop App">Desktop App</option>
               <option value="Mobile App">Mobile App</option>
             </select>
           </div>
 
+          {/* Descrição */}
           <div>
             <label
-              htmlFor="challenge"
-              className="block text-sm font-medium text-gray-300"
+              htmlFor="description"
+              className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
             >
-              O Desafio / Problema (Opcional)
+              Descrição Curta
             </label>
             <textarea
-              id="challenge"
-              rows="3"
-              value={challenge}
-              onChange={(e) => setChallenge(e.target.value)}
-              className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white"
-              placeholder="Qual problema esse sistema resolve?"
+              name="description"
+              rows="4"
+              value={project.description}
+              onChange={handleChange}
+              required
+              placeholder="Um breve resumo sobre o que é o projeto e qual problema ele resolve..."
+              className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none placeholder:text-neutral-700"
+            ></textarea>
+          </div>
+
+          {/* Imagem (Apenas Nova Imagem) */}
+          <div className="border border-neutral-900 p-6 rounded-xl bg-[#050505]">
+            <label
+              htmlFor="image"
+              className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-4"
+            >
+              Imagem de Capa (Obrigatório)
+            </label>
+
+            {image && (
+              <div className="mb-4">
+                <p className="text-xs text-white font-mono mb-2">
+                  Preview da Imagem:
+                </p>
+                <img
+                  src={URL.createObjectURL(image)}
+                  alt="Preview"
+                  className="h-32 w-56 object-cover rounded-lg border border-neutral-500"
+                />
+              </div>
+            )}
+
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              required
+              onChange={(e) =>
+                setImage(e.target.files ? e.target.files[0] : null)
+              }
+              className="block w-full text-sm text-neutral-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:uppercase file:tracking-wider file:bg-white file:text-black hover:file:bg-neutral-200 file:cursor-pointer transition-colors"
             />
           </div>
 
-          <div>
-            <label
-              htmlFor="solution"
-              className="block text-sm font-medium text-gray-300"
-            >
-              Solução de Engenharia (Opcional)
-            </label>
-            <textarea
-              id="solution"
-              rows="3"
-              value={solution}
-              onChange={(e) => setSolution(e.target.value)}
-              className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white"
-              placeholder="Como você estruturou a arquitetura do software para resolver o problema?"
-            />
+          {/* Links e URLs */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                htmlFor="repoUrl"
+                className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+              >
+                URL do Repositório (GitHub)
+              </label>
+              <input
+                type="text"
+                name="repoUrl"
+                value={project.repoUrl}
+                onChange={handleChange}
+                placeholder="https://github.com/..."
+                className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors placeholder:text-neutral-700"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="deployInput"
+                className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+              >
+                URL do Deploy (Ao Vivo)
+              </label>
+              <input
+                type="text"
+                name="deployInput"
+                value={project.deployInput}
+                onChange={handleChange}
+                placeholder="https://meuprojeto.com"
+                className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors placeholder:text-neutral-700"
+              />
+            </div>
           </div>
 
-          <div>
+          {/* Tecnologias */}
+          <div className="border-t border-neutral-900 pt-8">
             <label
-              htmlFor="learned"
-              className="block text-sm font-medium text-gray-300"
+              htmlFor="techInput"
+              className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
             >
-              Lições Aprendidas & Takeaways (Opcional)
+              Stack Tecnológica
             </label>
-            <textarea
-              id="learned"
-              rows="3"
-              value={learned}
-              onChange={(e) => setLearned(e.target.value)}
-              className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white"
-              placeholder="O que você aprendeu ou dominou de novo criando este projeto?"
+            <input
+              type="text"
+              id="techInput"
+              value={techInput}
+              onChange={(e) => setTechInput(e.target.value)}
+              onKeyDown={handleAddTecnology}
+              className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors placeholder:text-neutral-700"
+              placeholder="Digite a tecnologia e pressione Enter..."
             />
+
+            <div className="flex flex-wrap gap-2 mt-4">
+              {project.technologies.map((tech, index) => (
+                <span
+                  key={index}
+                  className="flex items-center gap-2 border border-neutral-800 text-neutral-300 text-xs px-3 py-1.5 rounded-full bg-[#111]"
+                >
+                  {tech}
+                  <button
+                    type="button"
+                    onClick={() => removeTechnology(index)}
+                    className="text-neutral-500 hover:text-white transition-colors focus:outline-none"
+                  >
+                    ✕
+                  </button>
+                </span>
+              ))}
+            </div>
           </div>
 
-          {error && <p className="text-red-500">{error}</p>}
+          {/* Textos Editoriais */}
+          <div className="space-y-6 border-t border-neutral-900 pt-8">
+            <div>
+              <label
+                htmlFor="challenge"
+                className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+              >
+                01. O Desafio / Problema (Opcional)
+              </label>
+              <textarea
+                name="challenge"
+                rows="3"
+                value={project.challenge}
+                onChange={handleChange}
+                className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none"
+              />
+            </div>
 
-          <div className="flex justify-end space-x-4">
+            <div>
+              <label
+                htmlFor="solution"
+                className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+              >
+                02. Solução de Engenharia (Opcional)
+              </label>
+              <textarea
+                name="solution"
+                rows="3"
+                value={project.solution}
+                onChange={handleChange}
+                className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="learned"
+                className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+              >
+                03. Lições Aprendidas & Takeaways (Opcional)
+              </label>
+              <textarea
+                name="learned"
+                rows="3"
+                value={project.learned}
+                onChange={handleChange}
+                className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none"
+              />
+            </div>
+          </div>
+
+          {/* Tratamento de Erro */}
+          {error && (
+            <div className="bg-red-950/30 border border-red-900/50 p-4 rounded-lg">
+              <p className="text-red-400 text-sm font-medium">{error}</p>
+            </div>
+          )}
+
+          {/* Botões de Ação */}
+          <div className="flex flex-col-reverse md:flex-row justify-end items-center gap-6 pt-6 border-t border-neutral-900">
             <Link
               href="/admin/dashboard"
-              className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
+              className="text-neutral-500 hover:text-white font-medium transition-colors"
             >
-              {" "}
               Cancelar
             </Link>
-
             <button
               type="submit"
-              className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              disabled={isSubmitting}
+              className="w-full md:w-auto bg-white hover:bg-neutral-200 text-black font-bold py-3 px-8 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {" "}
-              Salvar Projeto
+              {isSubmitting ? "Criando..." : "Criar Projeto"}
             </button>
           </div>
         </form>

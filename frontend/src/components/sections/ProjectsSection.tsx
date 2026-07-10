@@ -5,6 +5,7 @@ import ProjectCard from "@/components/ui/ProjectCard";
 import ProjectModal from "@/components/ui/ProjectModal";
 import { Project } from "@/types/project";
 import axios from "axios";
+import { motion, Variants } from "framer-motion";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -12,18 +13,25 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+const sectionVariant: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 export default function ProjectsSection() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  
-
   const [activeFilter, setActiveFilter] = useState<string>("Todos");
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get<Project[]>(
-          `${process.env.NEXT_PUBLIC_API_URL}/projects`
+          `${process.env.NEXT_PUBLIC_API_URL}/projects`,
         );
         setProjects(response.data);
       } catch (error) {
@@ -33,89 +41,103 @@ export default function ProjectsSection() {
     fetchProjects();
   }, []);
 
-
   const categories = [
     "Todos",
-    ...Array.from(new Set(projects.map((p) => p.type).filter(Boolean) as string[]))
+    ...Array.from(
+      new Set(projects.map((p) => p.type).filter(Boolean) as string[]),
+    ),
   ];
 
-
-  const filteredProjects = activeFilter === "Todos"
-    ? projects
-    : projects.filter((project) => project.type === activeFilter);
+  const filteredProjects =
+    activeFilter === "Todos"
+      ? projects
+      : projects.filter((project) => project.type === activeFilter);
 
   return (
     <>
       <section
         id="projetos"
-        className="flex flex-col items-center py-24 bg-black text-white overflow-hidden"
+        className="flex flex-col py-32 bg-[#0a0a0a] text-white overflow-hidden"
       >
-        <div className="w-full max-w-6xl px-4">
-          <h1 className="text-5xl font-extrabold mb-6 text-center text-cyan-400">
-            Projetos
-          </h1>
-
-          <p className="text-center text-gray-400 mb-8 max-w-md mx-auto text-sm md:text-base">
-            Filtrar por categoria:
-          </p>
-
-          {/* 4. Render dos botões de filtro com estilo cyberpunk combinando com o site */}
-          {projects.length > 0 && (
-            <div className="flex flex-wrap justify-center gap-3 mb-12">
-              {categories.map((category) => {
-                // Isolamos a lógica da classe antes do retorno para o TS não se confundir
-                const isSelected = activeFilter === category;
-                const buttonClass = isSelected
-                  ? "bg-cyan-500 text-black border-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.4)] px-5 py-2 rounded-full text-sm font-semibold transition-all border duration-300"
-                  : "bg-gray-900/60 text-gray-400 border-gray-800 hover:border-cyan-500/40 hover:text-cyan-300 px-5 py-2 rounded-full text-sm font-semibold transition-all border duration-300";
-
-                return (
-                  <button
-                    key={category}
-                    onClick={() => setActiveFilter(category)}
-                    className={buttonClass}
-                  >
-                    {category}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-
-          {/* 5. Passamos a lista filtrada para o Swiper */}
-          {filteredProjects.length > 0 ? (
-            <Swiper
-              modules={[Navigation, Pagination]}
-              spaceBetween={30}
-              slidesPerView={1.2}
-              navigation
-              pagination={{ clickable: true }}
-              breakpoints={{
-                768: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-              }}
-              className="pb-12"
-            >
-              {filteredProjects.map((project) => (
-                <SwiperSlide key={project.id}>
-                  <ProjectCard
-                    project={project}
-                    onClick={() => setSelectedProject(project)}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          ) : (
-            <p className="text-center text-gray-400 py-12">
-              {projects.length === 0
-                ? "Carregando projetos..."
-                : "Nenhum projeto encontrado nesta categoria."}
+        <div className="w-full max-w-5xl mx-auto px-6 md:px-12">
+          {/* Título*/}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={sectionVariant}
+            className="mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-2">
+              Trabalhos.
+            </h2>
+            <p className="text-neutral-400 font-light text-lg mb-8">
+              Uma seleção de projetos recentes e em destaque.
             </p>
-          )}
+
+            {/* Filtros */}
+            {projects.length > 0 && (
+              <div className="flex flex-wrap gap-6">
+                {categories.map((category) => {
+                  const isSelected = activeFilter === category;
+                  const buttonClass = isSelected
+                    ? "text-white border-b border-white pb-1 text-sm font-medium transition-colors"
+                    : "text-neutral-500 hover:text-neutral-300 pb-1 text-sm font-medium transition-colors cursor-pointer";
+
+                  return (
+                    <button
+                      key={category}
+                      onClick={() => setActiveFilter(category)}
+                      className={buttonClass}
+                    >
+                      {category}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </motion.div>
+
+          {/* Grid/Carrossel de Projetos */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={sectionVariant}
+          >
+            {filteredProjects.length > 0 ? (
+              <Swiper
+                modules={[Navigation, Pagination]}
+                spaceBetween={24}
+                slidesPerView={1.1}
+                breakpoints={{
+                  768: { slidesPerView: 2.2 },
+                  1024: { slidesPerView: 2.5 },
+                }}
+                className="pb-12"
+              >
+                {filteredProjects.map((project) => (
+                  <SwiperSlide key={project.id} className="!h-auto flex">
+                    <div className="w-full h-full flex flex-col">
+                      <ProjectCard
+                        project={project}
+                        onClick={() => setSelectedProject(project)}
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            ) : (
+              <p className="text-neutral-500 py-12 font-mono text-sm">
+                {projects.length === 0
+                  ? "[Carregando banco de dados...]"
+                  : "[Nenhum projeto encontrado]"}
+              </p>
+            )}
+          </motion.div>
         </div>
       </section>
 
-      {/* Render do Modal quando um projeto é selecionado */}
       {selectedProject && (
         <ProjectModal
           project={selectedProject}
