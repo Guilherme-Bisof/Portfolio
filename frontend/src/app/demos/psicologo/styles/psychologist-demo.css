@@ -1,0 +1,200 @@
+/* ================================================
+   PSYCHOLOGIST DEMO — EDITORIAL DESIGN SYSTEM V3
+   ================================================ */
+
+.psicologo-demo {
+  --bg: #F5F1EA;
+  --surface: #FBF8F3;
+  --surface-soft: #E8E2D8;
+  --primary: #6F7F70;
+  --primary-dark: #24382F;
+  --text: #28312D;
+  --text-muted: #69736D;
+  --accent: #C8876A;
+  --border: #D7D0C5;
+  --on-dark: #F5F1EA;
+  --on-dark-muted: #C9CEC8;
+
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- Typography ---- */
+.psi-serif {
+  font-family: var(--font-instrument), "Georgia", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ---- Focus ---- */
+.psicologo-demo *:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+/* ---- FAQ Animations ---- */
+.psicologo-demo details {
+  transition: all 0.3s ease;
+}
+.psicologo-demo details summary { list-style: none; }
+.psicologo-demo details summary::-webkit-details-marker { display: none; }
+.psicologo-demo details[open] .faq-icon { transform: rotate(45deg); }
+.psicologo-demo details[open] summary ~ * {
+  animation: sweep .3s ease-in-out;
+}
+@keyframes sweep {
+  0%    {opacity: 0; margin-top: -10px}
+  100%  {opacity: 1; margin-top: 0px}
+}
+
+/* ---- Reveal Animations ---- */
+.psi-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
+}
+.psi-reveal.psi-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.psi-image-reveal {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.9s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: clip-path;
+}
+.psi-image-reveal img {
+  transform: scale(1.03);
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.psi-image-reveal.psi-visible {
+  clip-path: inset(0 0 0 0);
+}
+.psi-image-reveal.psi-visible img {
+  transform: scale(1);
+}
+
+/* ---- Reduced Motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .psicologo-demo *, .psicologo-demo *::before, .psicologo-demo *::after, .psi-reveal, .psi-image-reveal {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
+
+/* ---- Button System ---- */
+.psi-btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background-color: var(--primary); color: var(--on-dark);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-weight: 600; font-size: 15px; padding: 14px 32px;
+  border-radius: 999px; border: none; cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.15s ease;
+  text-decoration: none; line-height: 1.4; min-height: 48px;
+}
+.psi-btn-primary:hover, .psi-btn-primary:focus-visible { background-color: var(--primary-dark); color: #fff; }
+.psi-btn-primary:active { transform: scale(0.98); }
+.psi-btn-primary:hover .psi-btn-arrow { transform: translateX(4px); }
+
+.psi-btn-secondary {
+  display: inline-flex; align-items: center;
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-weight: 500; font-size: 15px; color: var(--text);
+  text-decoration: underline; text-decoration-color: var(--border);
+  text-underline-offset: 4px; text-decoration-thickness: 1px;
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+  cursor: pointer; background: none; border: none; padding: 0; line-height: 1.4;
+}
+.psi-btn-secondary:hover, .psi-btn-secondary:focus-visible { text-decoration-color: var(--primary); color: var(--primary); }
+.psi-btn-secondary:hover .psi-btn-arrow { transform: translateX(4px); }
+
+.psi-btn-light {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background-color: var(--surface); color: var(--primary-dark);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-weight: 600; font-size: 15px; padding: 14px 32px;
+  border-radius: 999px; border: none; cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.15s ease;
+  text-decoration: none; line-height: 1.4; min-height: 48px;
+}
+.psi-btn-light:hover, .psi-btn-light:focus-visible { background-color: #fff; }
+.psi-btn-light:hover .psi-btn-arrow { transform: translateX(4px); }
+
+.psi-btn-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  margin-left: 4px;
+}
+
+/* ---- Section Padding ---- */
+.psi-section { padding: 80px 24px; }
+@media (min-width: 768px) { .psi-section { padding: 128px 48px; } }
+
+.psi-container { max-width: 1200px; margin: 0 auto; }
+
+/* ---- Eyebrow ---- */
+.psi-eyebrow {
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-weight: 600; font-size: 12px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--primary);
+}
+
+/* ---- Responsive Layout Classes ---- */
+
+/* Hero Image + Right Column */
+.psi-hero-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
+@media (min-width: 768px) { .psi-hero-grid { grid-template-columns: 1fr 420px; gap: 64px; } }
+
+/* About Grid */
+.psi-about-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
+@media (min-width: 768px) { .psi-about-grid { grid-template-columns: 1fr 1fr; gap: 64px; } }
+
+/* Topics Header */
+.psi-topics-header { display: flex; flex-direction: column; gap: 12px; }
+@media (min-width: 768px) { .psi-topics-header { flex-direction: row; align-items: flex-end; justify-content: space-between; } }
+
+/* Topics Grid */
+.psi-topics-grid { display: grid; grid-template-columns: 1fr; }
+@media (min-width: 768px) { .psi-topics-grid { grid-template-columns: 1fr 1fr; column-gap: 64px; } }
+
+/* Principles Grid */
+.psi-principles-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
+@media (min-width: 768px) { .psi-principles-grid { grid-template-columns: 1fr 1fr 1fr; gap: 32px; } }
+
+/* Formats Grid */
+.psi-formats-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
+@media (min-width: 768px) {
+  .psi-formats-grid { grid-template-columns: 1fr 1fr; gap: 0; }
+  .psi-format-left { padding-right: 48px; border-right: 1px solid var(--border); }
+  .psi-format-right { padding-left: 48px; }
+}
+
+/* Steps Grid */
+.psi-steps-grid { display: grid; grid-template-columns: 1fr; }
+@media (min-width: 768px) { .psi-steps-grid { grid-template-columns: 1fr 1fr 1fr; column-gap: 48px; } }
+
+/* CTA Grid */
+.psi-cta-grid { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center; }
+@media (min-width: 768px) { .psi-cta-grid { grid-template-columns: 1.2fr 1fr; } }
+
+/* Footer Grid */
+.psi-footer-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
+@media (min-width: 768px) { .psi-footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; } }
+
+/* Footer Bottom */
+.psi-footer-bottom { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+@media (min-width: 768px) { .psi-footer-bottom { flex-direction: row; justify-content: space-between; } }
+
+/* Hero Specific Layouts */
+.psi-hero-layout { display: grid; grid-template-columns: 1fr; gap: 48px; padding-top: 48px; }
+@media (min-width: 1024px) {
+  .psi-hero-layout { grid-template-columns: 1fr 480px; gap: 0; padding-top: 0; align-items: center; }
+  .psi-hero-image-wrapper { margin-top: -80px; }
+}
