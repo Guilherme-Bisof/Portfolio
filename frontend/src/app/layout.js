@@ -11,8 +11,8 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata = {
-  title: "Portifólio | Guilherme Bisof",
-  description: "Portifólio de desenvolvimento de Guilherme Bisof",
+  title: "Portfólio | Guilherme Bisof",
+  description: "Portfólio de desenvolvimento de Guilherme Bisof",
 };
 
 export const viewport = {
