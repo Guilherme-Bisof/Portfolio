@@ -37,7 +37,19 @@ export default function ProjectsSection() {
           `${process.env.NEXT_PUBLIC_API_URL}/projects`,
         );
         if (response.data && response.data.length > 0) {
-          setProjects(response.data);
+          const enrichedData = response.data.map(p => {
+            const fallbackP = fallbackProjects.find(fp => fp.id === p.id);
+            if (!fallbackP) return p;
+            return {
+              ...p,
+              titleEn: p.titleEn || fallbackP.titleEn,
+              descriptionEn: p.descriptionEn || fallbackP.descriptionEn,
+              challengeEn: p.challengeEn || fallbackP.challengeEn,
+              solutionEn: p.solutionEn || fallbackP.solutionEn,
+              learnedEn: p.learnedEn || fallbackP.learnedEn,
+            };
+          });
+          setProjects(enrichedData);
         } else {
           // Se a API retornar sucesso, mas vazio (sem dados), usa o fallback também (opcional)
           setProjects(fallbackProjects);
