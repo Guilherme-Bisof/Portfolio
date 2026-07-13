@@ -3,6 +3,7 @@
 import { Project } from "@/types/project";
 import React from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ProjectCardProps {
   project: Project;
@@ -10,7 +11,11 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, onClick }: ProjectCardProps) {
-  const { title, description, technologies, type } = project;
+  const { language, t } = useLanguage();
+  const { title, titleEn, description, descriptionEn, technologies, type } = project;
+  
+  const displayTitle = language === "en" && titleEn ? titleEn : title;
+  const displayDescription = language === "en" && descriptionEn ? descriptionEn : description;
 
   return (
     <motion.div
@@ -27,12 +32,12 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
 
         {/* Título */}
         <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-white group-hover:text-neutral-300 transition-colors tracking-tight line-clamp-3">
-          {title}
+          {displayTitle}
         </h3>
 
         {/* Descrição*/}
         <p className="text-neutral-400 text-base leading-relaxed mb-8 line-clamp-3 font-light">
-          {description}
+          {displayDescription}
         </p>
       </div>
 
@@ -58,7 +63,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         {/* Link */}
         <div className="pt-4 border-t border-neutral-800/50">
           <span className="text-sm font-medium text-white flex items-center gap-2 group-hover:text-neutral-400 transition-colors">
-            Explorar Projeto
+            {language === "en" ? "Explore Project" : "Explorar Projeto"}
             <span className="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">
               ↗
             </span>

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, Variants } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Graduation {
   course: string;
@@ -17,26 +18,6 @@ interface ComplementaryCourse {
   year: string;
 }
 
-const graduation: Graduation = {
-  course: "Análise e Desenvolvimento de Sistemas",
-  institution: "UniCesumar - Tatuí/SP",
-  period: "Set. 2025 - Jun. 2028",
-  description:
-    "Foco em desenvolvimento de sistemas escaláveis e arquitetura de aplicações reais.",
-  tags: ["Engenharia de Software", "Sistemas", "Projetos Reais"],
-};
-
-const complementaryCourses: ComplementaryCourse[] = [
-  { name: "Linux Unhatched", institution: "Cisco", year: "2025" },
-  { name: "Introdução à POO", institution: "Fundação Bradesco", year: "2025" },
-  { name: "Versionamento com Git/GitHub", institution: "DIO", year: "2025" },
-  {
-    name: "Site com HTML, CSS e JS",
-    institution: "Fundação Bradesco",
-    year: "2024",
-  },
-];
-
 const sectionVariant: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -47,6 +28,11 @@ const sectionVariant: Variants = {
 };
 
 export default function EducationSection() {
+  const { t } = useLanguage();
+  
+  const graduation = t("education.graduation") as Graduation;
+  const complementaryCourses = t("education.courses") as ComplementaryCourse[];
+
   return (
     <section id="educacao" className="flex flex-col py-32 bg-black text-white">
       <div className="w-full max-w-5xl mx-auto px-6 md:px-12">
@@ -58,10 +44,10 @@ export default function EducationSection() {
           className="mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-2">
-            Trajetória.
+            {t("education.title")}
           </h2>
           <p className="text-neutral-400 font-light text-lg">
-            Formação acadêmica e especializações.
+            {t("education.subtitle")}
           </p>
         </motion.div>
 
@@ -88,7 +74,7 @@ export default function EducationSection() {
             {graduation.description}
           </p>
           <div className="flex flex-wrap gap-2">
-            {graduation.tags.map((tag) => (
+            {graduation.tags?.map((tag) => (
               <span
                 key={tag}
                 className="border border-neutral-800 text-neutral-500 text-xs px-3 py-1 rounded-full font-medium"
@@ -109,10 +95,10 @@ export default function EducationSection() {
           }}
         >
           <h3 className="text-xl font-medium tracking-tight mb-8 text-neutral-300">
-            Especializações Complementares
+            {t("education.complementaryTitle")}
           </h3>
           <div className="flex flex-col">
-            {complementaryCourses.map((course, index) => (
+            {complementaryCourses?.map((course, index) => (
               <motion.div
                 key={course.name}
                 variants={sectionVariant}

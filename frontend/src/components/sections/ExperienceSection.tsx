@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, Variants } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Experience {
   role: string;
@@ -9,28 +10,6 @@ interface Experience {
   period: string;
   description: string;
 }
-
-const experiences: Experience[] = [
-  {
-    role: "Estagiário de Projeto",
-    company: "Uotz - Inteligência de Mercado",
-    period: "Set. 2025 — Presente",
-    description: "• Elaboração de cenário de testes em processos, serviços e soluções digitais;\n• Execução de testes de validação das jornadas de produtos digitais e telecom (Quality Assurance e Customer Experience);\n• Confecção de relatórios, análise de resultados e report para área demandante e para os clientes."
-  },
-  {
-    role: "Estagiário Administrativo",
-    company: "Justiça Restaurativa",
-    period: "Maio 2025 - Set. 2025",
-    description: "Atuação focada na modernização do sistema web de gestão de processos e agendamentos institucionais.\n• Desenvolvimento full-stack da plataforma utilizando PHP, MySQL e Bootstrap.\n• Redução de 40% no tempo de triagem via digitalização e indexação de documentos.\n• Segurança avançada: proteção contra SQL Injection (Prepared Statements), criptografia de senhas e controle de acesso (RBAC)."
-  },
-  {
-    role: "Desenvolvedor Full-Stack",
-    company: "Freelancer / Projetos Pessoais",
-    period: "2023 — Presente",
-    description:
-      "Desenvolvimento de sistemas escaláveis, incluindo plataformas de gestão offline com Electron e aplicações web modernas utilizando Next.js, Node.js e bancos de dados relacionais.",
-  },
-];
 
 const sectionVariant: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -42,6 +21,9 @@ const sectionVariant: Variants = {
 };
 
 export default function ExperienceSection() {
+  const { t } = useLanguage();
+  const experiences = t("experience.jobs") as Experience[];
+
   return (
     <section
       id="experiencia"
@@ -56,10 +38,10 @@ export default function ExperienceSection() {
           className="mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-2">
-            Experiência.
+            {t("experience.title")}
           </h2>
           <p className="text-neutral-400 font-light text-lg">
-            Histórico profissional e atuação prática.
+            {t("experience.subtitle")}
           </p>
         </motion.div>
 

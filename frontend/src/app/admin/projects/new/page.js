@@ -13,14 +13,19 @@ export default function NewProjectPage() {
   // Estado inicial limpo para um novo projeto
   const [project, setProject] = useState({
     title: "",
+    titleEn: "",
     description: "",
+    descriptionEn: "",
     repoUrl: "",
     deployInput: "",
     technologies: [],
     type: "",
     challenge: "",
+    challengeEn: "",
     solution: "",
+    solutionEn: "",
     learned: "",
+    learnedEn: "",
   });
 
   const [techInput, setTechInput] = useState("");
@@ -67,14 +72,19 @@ export default function NewProjectPage() {
 
     const formData = new FormData();
     formData.append("title", project.title);
+    formData.append("titleEn", project.titleEn || "");
     formData.append("description", project.description);
+    formData.append("descriptionEn", project.descriptionEn || "");
     formData.append("repoUrl", project.repoUrl || "");
     formData.append("deployInput", project.deployInput || "");
     formData.append("type", project.type || "");
     formData.append("technologies", JSON.stringify(project.technologies));
     formData.append("challenge", project.challenge || "");
+    formData.append("challengeEn", project.challengeEn || "");
     formData.append("solution", project.solution || "");
+    formData.append("solutionEn", project.solutionEn || "");
     formData.append("learned", project.learned || "");
+    formData.append("learnedEn", project.learnedEn || "");
 
     // Na criação, a imagem é obrigatória ou altamente recomendada
     if (image) {
@@ -124,22 +134,40 @@ export default function NewProjectPage() {
           className="space-y-8 bg-[#0a0a0a] p-8 md:p-10 rounded-2xl border border-neutral-900 shadow-2xl"
         >
           {/* Título */}
-          <div>
-            <label
-              htmlFor="title"
-              className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
-            >
-              Título do Projeto
-            </label>
-            <input
-              type="text"
-              name="title"
-              value={project.title}
-              onChange={handleChange}
-              required
-              placeholder="Ex: Sistema de Gestão Financeira"
-              className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors placeholder:text-neutral-700"
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                htmlFor="title"
+                className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+              >
+                Título do Projeto (PT)
+              </label>
+              <input
+                type="text"
+                name="title"
+                value={project.title}
+                onChange={handleChange}
+                required
+                placeholder="Ex: Sistema de Gestão Financeira"
+                className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors placeholder:text-neutral-700"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="titleEn"
+                className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+              >
+                Título do Projeto (EN)
+              </label>
+              <input
+                type="text"
+                name="titleEn"
+                value={project.titleEn}
+                onChange={handleChange}
+                placeholder="Ex: Financial Management System"
+                className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors placeholder:text-neutral-700"
+              />
+            </div>
           </div>
 
           {/* Categoria */}
@@ -167,22 +195,40 @@ export default function NewProjectPage() {
           </div>
 
           {/* Descrição */}
-          <div>
-            <label
-              htmlFor="description"
-              className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
-            >
-              Descrição Curta
-            </label>
-            <textarea
-              name="description"
-              rows="4"
-              value={project.description}
-              onChange={handleChange}
-              required
-              placeholder="Um breve resumo sobre o que é o projeto e qual problema ele resolve..."
-              className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none placeholder:text-neutral-700"
-            ></textarea>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                htmlFor="description"
+                className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+              >
+                Descrição Curta (PT)
+              </label>
+              <textarea
+                name="description"
+                rows="4"
+                value={project.description}
+                onChange={handleChange}
+                required
+                placeholder="Um breve resumo sobre o que é o projeto e qual problema ele resolve..."
+                className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none placeholder:text-neutral-700"
+              ></textarea>
+            </div>
+            <div>
+              <label
+                htmlFor="descriptionEn"
+                className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+              >
+                Descrição Curta (EN)
+              </label>
+              <textarea
+                name="descriptionEn"
+                rows="4"
+                value={project.descriptionEn}
+                onChange={handleChange}
+                placeholder="A short summary about what the project is..."
+                className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none placeholder:text-neutral-700"
+              ></textarea>
+            </div>
           </div>
 
           {/* Imagem (Apenas Nova Imagem) */}
@@ -295,52 +341,103 @@ export default function NewProjectPage() {
 
           {/* Textos Editoriais */}
           <div className="space-y-6 border-t border-neutral-900 pt-8">
-            <div>
-              <label
-                htmlFor="challenge"
-                className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
-              >
-                01. O Desafio / Problema (Opcional)
-              </label>
-              <textarea
-                name="challenge"
-                rows="3"
-                value={project.challenge}
-                onChange={handleChange}
-                className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label
+                  htmlFor="challenge"
+                  className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+                >
+                  01. O Desafio / Problema (PT)
+                </label>
+                <textarea
+                  name="challenge"
+                  rows="3"
+                  value={project.challenge}
+                  onChange={handleChange}
+                  className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="challengeEn"
+                  className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+                >
+                  01. The Challenge (EN)
+                </label>
+                <textarea
+                  name="challengeEn"
+                  rows="3"
+                  value={project.challengeEn}
+                  onChange={handleChange}
+                  className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none"
+                />
+              </div>
             </div>
 
-            <div>
-              <label
-                htmlFor="solution"
-                className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
-              >
-                02. Solução de Engenharia (Opcional)
-              </label>
-              <textarea
-                name="solution"
-                rows="3"
-                value={project.solution}
-                onChange={handleChange}
-                className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label
+                  htmlFor="solution"
+                  className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+                >
+                  02. Solução de Engenharia (PT)
+                </label>
+                <textarea
+                  name="solution"
+                  rows="3"
+                  value={project.solution}
+                  onChange={handleChange}
+                  className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="solutionEn"
+                  className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+                >
+                  02. Engineering Solution (EN)
+                </label>
+                <textarea
+                  name="solutionEn"
+                  rows="3"
+                  value={project.solutionEn}
+                  onChange={handleChange}
+                  className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none"
+                />
+              </div>
             </div>
 
-            <div>
-              <label
-                htmlFor="learned"
-                className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
-              >
-                03. Lições Aprendidas & Takeaways (Opcional)
-              </label>
-              <textarea
-                name="learned"
-                rows="3"
-                value={project.learned}
-                onChange={handleChange}
-                className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label
+                  htmlFor="learned"
+                  className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+                >
+                  03. Lições Aprendidas (PT)
+                </label>
+                <textarea
+                  name="learned"
+                  rows="3"
+                  value={project.learned}
+                  onChange={handleChange}
+                  className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="learnedEn"
+                  className="block text-xs font-mono uppercase tracking-widest text-neutral-500 mb-2"
+                >
+                  03. Lessons Learned (EN)
+                </label>
+                <textarea
+                  name="learnedEn"
+                  rows="3"
+                  value={project.learnedEn}
+                  onChange={handleChange}
+                  className="w-full bg-[#111111] border border-neutral-800 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-neutral-500 transition-colors resize-none"
+                />
+              </div>
             </div>
           </div>
 

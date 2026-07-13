@@ -1,0 +1,79 @@
+{
+  "navbar": {
+    "about": "Sobre",
+    "education": "Educação",
+    "experience": "Experiência",
+    "projects": "Projetos",
+    "contact": "Contato",
+    "resume": "Currículo"
+  },
+  "about": {
+    "title1": "Guilherme",
+    "title2": "Bisof.",
+    "subtitle": "Engenharia de Software &\nDesenvolvimento Full-Stack.",
+    "description": "Construindo sistemas escaláveis, performáticos e focados na resolução de problemas reais do mercado. Baseado em Tatuí/SP.",
+    "viewProjects": "Ver Projetos ↗",
+    "contact": "Entrar em contato"
+  },
+  "experience": {
+    "title": "Experiência.",
+    "subtitle": "Histórico profissional e atuação prática.",
+    "jobs": [
+      {
+        "role": "Estagiário de Projeto",
+        "company": "Uotz - Inteligência de Mercado",
+        "period": "Set. 2025 — Presente",
+        "description": "• Elaboração de cenário de testes em processos, serviços e soluções digitais;\n• Execução de testes de validação das jornadas de produtos digitais e telecom (Quality Assurance e Customer Experience);\n• Confecção de relatórios, análise de resultados e report para área demandante e para os clientes."
+      },
+      {
+        "role": "Estagiário Administrativo",
+        "company": "Justiça Restaurativa",
+        "period": "Maio 2025 - Set. 2025",
+        "description": "Atuação focada na modernização do sistema web de gestão de processos e agendamentos institucionais.\n• Desenvolvimento full-stack da plataforma utilizando PHP, MySQL e Bootstrap.\n• Redução de 40% no tempo de triagem via digitalização e indexação de documentos.\n• Segurança avançada: proteção contra SQL Injection (Prepared Statements), criptografia de senhas e controle de acesso (RBAC)."
+      },
+      {
+        "role": "Desenvolvedor Full-Stack",
+        "company": "Freelancer / Projetos Pessoais",
+        "period": "2023 — Presente",
+        "description": "Desenvolvimento de sistemas escaláveis, incluindo plataformas de gestão offline com Electron e aplicações web modernas utilizando Next.js, Node.js e bancos de dados relacionais."
+      }
+    ]
+  },
+  "education": {
+    "title": "Trajetória.",
+    "subtitle": "Formação acadêmica e especializações.",
+    "graduation": {
+      "course": "Análise e Desenvolvimento de Sistemas",
+      "institution": "UniCesumar - Tatuí/SP",
+      "period": "Set. 2025 - Jun. 2028",
+      "description": "Foco em desenvolvimento de sistemas escaláveis e arquitetura de aplicações reais.",
+      "tags": ["Engenharia de Software", "Sistemas", "Projetos Reais"]
+    },
+    "complementaryTitle": "Especializações Complementares",
+    "courses": [
+      { "name": "Linux Unhatched", "institution": "Cisco", "year": "2025" },
+      { "name": "Introdução à POO", "institution": "Fundação Bradesco", "year": "2025" },
+      { "name": "Versionamento com Git/GitHub", "institution": "DIO", "year": "2025" },
+      { "name": "Site com HTML, CSS e JS", "institution": "Fundação Bradesco", "year": "2024" }
+    ]
+  },
+  "skills": {
+    "title": "Arsenal Técnico.",
+    "subtitle": "Ferramentas e tecnologias que utilizo no dia a dia para construir soluções robustas e escaláveis.",
+    "backend": "Back-End",
+    "frontend": "Front-End",
+    "tools": "Ferramentas e Fluxo"
+  },
+  "projects": {
+    "title": "Trabalhos.",
+    "subtitle": "Uma seleção de projetos recentes e em destaque.",
+    "filterAll": "Todos",
+    "loading": "[Carregando banco de dados...]",
+    "empty": "[Nenhum projeto encontrado]"
+  },
+  "contact": {
+    "title1": "Vamos",
+    "title2": "conversar.",
+    "subtitle": "Sempre aberto a discutir novas oportunidades, arquitetura de sistemas ou parcerias."
+  }
+}

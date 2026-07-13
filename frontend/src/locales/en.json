@@ -1,0 +1,79 @@
+{
+  "navbar": {
+    "about": "About",
+    "education": "Education",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact",
+    "resume": "Resume"
+  },
+  "about": {
+    "title1": "Guilherme",
+    "title2": "Bisof.",
+    "subtitle": "Software Engineering &\nFull-Stack Development.",
+    "description": "Building scalable, high-performance systems focused on solving real market problems. Based in Tatuí/SP, Brazil.",
+    "viewProjects": "View Projects ↗",
+    "contact": "Get in touch"
+  },
+  "experience": {
+    "title": "Experience.",
+    "subtitle": "Professional background and practical work.",
+    "jobs": [
+      {
+        "role": "Project Intern",
+        "company": "Uotz - Market Intelligence",
+        "period": "Sep. 2025 — Present",
+        "description": "• Elaboration of test scenarios for digital processes, services, and solutions;\n• Execution of validation tests for digital product and telecom journeys (Quality Assurance and Customer Experience);\n• Preparation of reports, result analysis, and reporting for the requesting area and clients."
+      },
+      {
+        "role": "Administrative Intern",
+        "company": "Restorative Justice",
+        "period": "May 2025 - Sep. 2025",
+        "description": "Focused on modernizing the web system for process management and institutional scheduling.\n• Full-stack platform development using PHP, MySQL, and Bootstrap.\n• 40% reduction in screening time via document digitization and indexing.\n• Advanced security: SQL Injection protection (Prepared Statements), password encryption, and access control (RBAC)."
+      },
+      {
+        "role": "Full-Stack Developer",
+        "company": "Freelancer / Personal Projects",
+        "period": "2023 — Present",
+        "description": "Development of scalable systems, including offline management platforms with Electron and modern web applications using Next.js, Node.js, and relational databases."
+      }
+    ]
+  },
+  "education": {
+    "title": "Trajectory.",
+    "subtitle": "Academic background and specializations.",
+    "graduation": {
+      "course": "Systems Analysis and Development",
+      "institution": "UniCesumar - Tatuí/SP",
+      "period": "Sep. 2025 - Jun. 2028",
+      "description": "Focus on developing scalable systems and real-world application architecture.",
+      "tags": ["Software Engineering", "Systems", "Real Projects"]
+    },
+    "complementaryTitle": "Complementary Specializations",
+    "courses": [
+      { "name": "Linux Unhatched", "institution": "Cisco", "year": "2025" },
+      { "name": "Intro to OOP", "institution": "Fundação Bradesco", "year": "2025" },
+      { "name": "Versioning with Git/GitHub", "institution": "DIO", "year": "2025" },
+      { "name": "Website with HTML, CSS, and JS", "institution": "Fundação Bradesco", "year": "2024" }
+    ]
+  },
+  "skills": {
+    "title": "Technical Arsenal.",
+    "subtitle": "Tools and technologies I use daily to build robust and scalable solutions.",
+    "backend": "Back-End",
+    "frontend": "Front-End",
+    "tools": "Tools and Workflow"
+  },
+  "projects": {
+    "title": "Work.",
+    "subtitle": "A selection of recent and featured projects.",
+    "filterAll": "All",
+    "loading": "[Loading database...]",
+    "empty": "[No projects found]"
+  },
+  "contact": {
+    "title1": "Let's",
+    "title2": "talk.",
+    "subtitle": "Always open to discussing new opportunities, systems architecture, or partnerships."
+  }
+}

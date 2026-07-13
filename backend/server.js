@@ -166,14 +166,19 @@ app.post(
     try {
       const {
         title,
+        titleEn,
         description,
+        descriptionEn,
         repoUrl,
         technologies,
         deployInput,
         type,
         challenge,
+        challengeEn,
         solution,
+        solutionEn,
         learned,
+        learnedEn,
       } = req.body;
 
       const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
@@ -186,15 +191,20 @@ app.post(
       const newProject = await prisma.project.create({
         data: {
           title,
+          titleEn,
           description,
+          descriptionEn,
           image: imagePath,
           repoUrl,
           technologies: parsedTechnologies,
           deployInput,
           type,
           challenge,
+          challengeEn,
           solution,
+          solutionEn,
           learned,
+          learnedEn,
         },
       });
       res.status(201).json(newProject);
@@ -217,15 +227,20 @@ app.put(
       const { id } = req.params;
       const {
         title,
+        titleEn,
         description,
+        descriptionEn,
         repoUrl,
         technologies,
         deployInput,
         type,
         image,
         challenge,
+        challengeEn,
         solution,
+        solutionEn,
         learned,
+        learnedEn,
       } = req.body;
 
       const parsedTechnologies =
@@ -235,15 +250,20 @@ app.put(
 
       const updateData = {
         title,
+        titleEn,
         description,
+        descriptionEn,
         repoUrl,
         deployInput,
         technologies: parsedTechnologies,
         type,
         image,
         challenge,
+        challengeEn,
         solution,
+        solutionEn,
         learned,
+        learnedEn,
       };
 
       if (req.file) {

@@ -10,7 +10,9 @@ datasource db {
 model Project {
   id           Int      @id @default(autoincrement())
   title        String
+  titleEn      String?
   description  String
+  descriptionEn String?
   repoUrl      String?
   deployInput  String?
   createdAt    DateTime @default(now())
@@ -20,8 +22,11 @@ model Project {
   image        String?
 
   challenge    String?  @db.Text
+  challengeEn  String?  @db.Text
   solution     String?  @db.Text
+  solutionEn   String?  @db.Text
   learned      String?  @db.Text
+  learnedEn    String?  @db.Text
 }
 
 model User {

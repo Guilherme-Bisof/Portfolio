@@ -2,8 +2,10 @@
 
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function AboutSection() {
+  const { t } = useLanguage();
   const textReveal: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
@@ -31,24 +33,22 @@ export default function AboutSection() {
             variants={textReveal}
             className="text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tighter text-white leading-[0.9]"
           >
-            Guilherme <br className="hidden md:block" />
-            <span className="text-neutral-600">Bisof.</span>
+            {t("about.title1")} <br className="hidden md:block" />
+            <span className="text-neutral-600">{t("about.title2")}</span>
           </motion.h1>
 
           <motion.h2
             variants={textReveal}
-            className="text-2xl md:text-4xl lg:text-5xl font-medium tracking-tight text-neutral-300 mt-4 md:mt-8"
+            className="text-2xl md:text-4xl lg:text-5xl font-medium tracking-tight text-neutral-300 mt-4 md:mt-8 whitespace-pre-line"
           >
-            Engenharia de Software & <br />
-            Desenvolvimento Full-Stack.
+            {t("about.subtitle")}
           </motion.h2>
 
           <motion.p
             variants={textReveal}
             className="text-lg md:text-xl text-neutral-400 max-w-2xl mt-4 leading-relaxed font-light"
           >
-            Construindo sistemas escaláveis, performáticos e focados na
-            resolução de problemas reais do mercado. Baseado em Tatuí/SP.
+            {t("about.description")}
           </motion.p>
 
           {/* Links */}
@@ -60,13 +60,13 @@ export default function AboutSection() {
               href="#projetos"
               className="text-white text-lg font-medium border-b border-white pb-1 hover:text-neutral-400 hover:border-neutral-400 transition-colors"
             >
-              Ver Projetos ↗
+              {t("about.viewProjects")}
             </a>
             <a
               href="#contato"
               className="text-neutral-400 text-lg font-medium hover:text-white transition-colors"
             >
-              Entrar em contato
+              {t("about.contact")}
             </a>
           </motion.div>
         </motion.div>

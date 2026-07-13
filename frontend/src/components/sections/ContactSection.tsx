@@ -12,7 +12,11 @@ const sectionVariant: Variants = {
   },
 };
 
+import { useLanguage } from "@/context/LanguageContext";
+
 export default function ContactSection() {
+  const { t } = useLanguage();
+
   return (
     <section
       id="contato"
@@ -26,11 +30,10 @@ export default function ContactSection() {
           variants={sectionVariant}
         >
           <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-white mb-6 leading-[1.1]">
-            Vamos <br className="hidden md:block" /> conversar.
+            {t("contact.title1")} <br className="hidden md:block" /> {t("contact.title2")}
           </h2>
           <p className="text-neutral-400 font-light text-lg max-w-md">
-            Sempre aberto a discutir novas oportunidades, arquitetura de
-            sistemas ou parcerias.
+            {t("contact.subtitle")}
           </p>
         </motion.div>
 

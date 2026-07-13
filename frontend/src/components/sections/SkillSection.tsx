@@ -80,7 +80,11 @@ const itemVariant: Variants = {
   },
 };
 
+import { useLanguage } from "@/context/LanguageContext";
+
 export default function SkillsSection() {
+  const { t } = useLanguage();
+
   return (
     <section
       id="habilidades"
@@ -95,11 +99,10 @@ export default function SkillsSection() {
           className="mb-24"
         >
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
-            Arsenal Técnico.
+            {t("skills.title")}
           </h2>
           <p className="text-neutral-400 font-light text-lg max-w-2xl leading-relaxed">
-            Ferramentas e tecnologias que utilizo no dia a dia para construir
-            soluções robustas e escaláveis.
+            {t("skills.subtitle")}
           </p>
         </motion.div>
 
@@ -112,7 +115,7 @@ export default function SkillsSection() {
             variants={containerVariant}
           >
             <h3 className="text-xl font-medium tracking-tight mb-8 text-neutral-300 border-b border-neutral-900 pb-4">
-              Back-End
+              {t("skills.backend")}
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {backEndSkills.map((skill) => (
@@ -135,7 +138,7 @@ export default function SkillsSection() {
             variants={containerVariant}
           >
             <h3 className="text-xl font-medium tracking-tight mb-8 text-neutral-300 border-b border-neutral-900 pb-4">
-              Front-End
+              {t("skills.frontend")}
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {frontEndSkills.map((skill) => (
@@ -158,7 +161,7 @@ export default function SkillsSection() {
             variants={containerVariant}
           >
             <h3 className="text-xl font-medium tracking-tight mb-8 text-neutral-300 border-b border-neutral-900 pb-4">
-              Ferramentas e Fluxo
+              {t("skills.tools")}
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {tools.map((tool) => (

@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { Project } from "@/types/project";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -11,7 +12,14 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const { language, t } = useLanguage();
   if (!project) return null;
+
+  const displayTitle = language === "en" && project.titleEn ? project.titleEn : project.title;
+  const displayDescription = language === "en" && project.descriptionEn ? project.descriptionEn : project.description;
+  const displayChallenge = language === "en" && project.challengeEn ? project.challengeEn : project.challenge;
+  const displaySolution = language === "en" && project.solutionEn ? project.solutionEn : project.solution;
+  const displayLearned = language === "en" && project.learnedEn ? project.learnedEn : project.learned;
 
   const handleContentClick = (e: React.MouseEvent) => e.stopPropagation();
 
@@ -43,7 +51,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               {project.type || "Software Case"}
             </span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
-              {project.title}
+              {displayTitle}
             </h2>
           </div>
           <button
@@ -72,39 +80,39 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Seção Editorial */}
           <div className="space-y-10">
-            {!project.challenge && !project.solution && !project.learned ? (
+            {!displayChallenge && !displaySolution && !displayLearned ? (
               <p className="text-neutral-300 text-lg font-light leading-relaxed whitespace-pre-wrap">
-                {project.description}
+                {displayDescription}
               </p>
             ) : (
               <>
-                {project.challenge && (
+                {displayChallenge && (
                   <div>
                     <h4 className="text-sm font-mono uppercase tracking-widest text-neutral-500 mb-4">
-                      01. O Desafio
+                      {language === "en" ? "01. The Challenge" : "01. O Desafio"}
                     </h4>
                     <p className="text-neutral-300 text-base font-light leading-relaxed whitespace-pre-wrap">
-                      {project.challenge}
+                      {displayChallenge}
                     </p>
                   </div>
                 )}
-                {project.solution && (
+                {displaySolution && (
                   <div>
                     <h4 className="text-sm font-mono uppercase tracking-widest text-neutral-500 mb-4">
-                      02. A Solução
+                      {language === "en" ? "02. The Solution" : "02. A Solução"}
                     </h4>
                     <p className="text-neutral-300 text-base font-light leading-relaxed whitespace-pre-wrap">
-                      {project.solution}
+                      {displaySolution}
                     </p>
                   </div>
                 )}
-                {project.learned && (
+                {displayLearned && (
                   <div>
                     <h4 className="text-sm font-mono uppercase tracking-widest text-neutral-500 mb-4">
-                      03. Aprendizados
+                      {language === "en" ? "03. Lessons Learned" : "03. Aprendizados"}
                     </h4>
                     <p className="text-neutral-300 text-base font-light leading-relaxed whitespace-pre-wrap">
-                      {project.learned}
+                      {displayLearned}
                     </p>
                   </div>
                 )}
@@ -118,7 +126,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           <div className="flex flex-col md:flex-row gap-8 justify-between items-start">
             <div className="flex-1">
               <h4 className="font-mono text-neutral-500 mb-4 uppercase tracking-widest text-xs">
-                Stack Tecnológica
+                {language === "en" ? "Tech Stack" : "Stack Tecnológica"}
               </h4>
               <div className="flex flex-wrap gap-2">
                 {project.technologies?.map((tech, index) => (
@@ -143,7 +151,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   target="_blank"
                   className="bg-white text-black hover:bg-neutral-200 font-bold py-3 px-6 rounded-lg transition-colors text-center text-sm"
                 >
-                  Projeto Ao Vivo ↗
+                  {language === "en" ? "Live Project ↗" : "Projeto Ao Vivo ↗"}
                 </Link>
               )}
               {project.repoUrl && (
@@ -152,7 +160,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   target="_blank"
                   className="bg-transparent border border-neutral-700 hover:border-neutral-500 text-white font-medium py-3 px-6 rounded-lg transition-colors text-center text-sm"
                 >
-                  Repositório ↗
+                  {language === "en" ? "Repository ↗" : "Repositório ↗"}
                 </Link>
               )}
             </div>

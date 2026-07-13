@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import ProjectCard from "@/components/ui/ProjectCard";
 import ProjectModal from "@/components/ui/ProjectModal";
 import { Project } from "@/types/project";
+import { fallbackProjects } from "@/data/fallbackProjects";
 import axios from "axios";
 import { motion, Variants } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -23,6 +25,7 @@ const sectionVariant: Variants = {
 };
 
 export default function ProjectsSection() {
+  const { t } = useLanguage();
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [activeFilter, setActiveFilter] = useState<string>("Todos");
@@ -33,9 +36,15 @@ export default function ProjectsSection() {
         const response = await axios.get<Project[]>(
           `${process.env.NEXT_PUBLIC_API_URL}/projects`,
         );
-        setProjects(response.data);
+        if (response.data && response.data.length > 0) {
+          setProjects(response.data);
+        } else {
+          // Se a API retornar sucesso, mas vazio (sem dados), usa o fallback também (opcional)
+          setProjects(fallbackProjects);
+        }
       } catch (error) {
-        console.error("Erro ao buscar projetos:", error);
+        console.error("Erro ao buscar projetos, usando fallback local:", error);
+        setProjects(fallbackProjects);
       }
     };
     fetchProjects();
@@ -69,10 +78,10 @@ export default function ProjectsSection() {
             className="mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-2">
-              Trabalhos.
+              {t("projects.title")}
             </h2>
             <p className="text-neutral-400 font-light text-lg mb-8">
-              Uma seleção de projetos recentes e em destaque.
+              {t("projects.subtitle")}
             </p>
 
             {/* Filtros */}
@@ -84,13 +93,15 @@ export default function ProjectsSection() {
                     ? "text-white border-b border-white pb-1 text-sm font-medium transition-colors"
                     : "text-neutral-500 hover:text-neutral-300 pb-1 text-sm font-medium transition-colors cursor-pointer";
 
+                  const displayCategory = category === "Todos" ? t("projects.filterAll") : category;
+
                   return (
                     <button
                       key={category}
                       onClick={() => setActiveFilter(category)}
                       className={buttonClass}
                     >
-                      {category}
+                      {displayCategory}
                     </button>
                   );
                 })}
@@ -130,8 +141,8 @@ export default function ProjectsSection() {
             ) : (
               <p className="text-neutral-500 py-12 font-mono text-sm">
                 {projects.length === 0
-                  ? "[Carregando banco de dados...]"
-                  : "[Nenhum projeto encontrado]"}
+                  ? t("projects.loading")
+                  : t("projects.empty")}
               </p>
             )}
           </motion.div>
