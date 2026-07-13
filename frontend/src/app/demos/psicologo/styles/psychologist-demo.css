@@ -1,6 +1,4 @@
-/* ================================================
-   PSYCHOLOGIST DEMO — EDITORIAL DESIGN SYSTEM V3
-   ================================================ */
+
 
 .psicologo-demo {
   --bg: #F5F1EA;
@@ -22,20 +20,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ---- Typography ---- */
+
 .psi-serif {
   font-family: var(--font-instrument), "Georgia", serif;
   font-weight: 400;
   font-style: normal;
 }
 
-/* ---- Focus ---- */
 .psicologo-demo *:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 3px;
 }
 
-/* ---- FAQ Animations ---- */
 .psicologo-demo details {
   transition: all 0.3s ease;
 }
@@ -50,7 +46,6 @@
   100%  {opacity: 1; margin-top: 0px}
 }
 
-/* ---- Reveal Animations ---- */
 .psi-reveal {
   opacity: 0;
   transform: translateY(20px);
@@ -78,7 +73,6 @@
   transform: scale(1);
 }
 
-/* ---- Reduced Motion ---- */
 @media (prefers-reduced-motion: reduce) {
   .psicologo-demo *, .psicologo-demo *::before, .psicologo-demo *::after, .psi-reveal, .psi-image-reveal {
     animation-duration: 0.01ms !important;
@@ -89,7 +83,7 @@
   }
 }
 
-/* ---- Button System ---- */
+
 .psi-btn-primary {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   background-color: var(--primary); color: var(--on-dark);
@@ -148,27 +142,26 @@
 
 /* ---- Responsive Layout Classes ---- */
 
-/* Hero Image + Right Column */
+
 .psi-hero-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
 @media (min-width: 768px) { .psi-hero-grid { grid-template-columns: 1fr 420px; gap: 64px; } }
 
-/* About Grid */
+
 .psi-about-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
 @media (min-width: 768px) { .psi-about-grid { grid-template-columns: 1fr 1fr; gap: 64px; } }
 
-/* Topics Header */
+
 .psi-topics-header { display: flex; flex-direction: column; gap: 12px; }
 @media (min-width: 768px) { .psi-topics-header { flex-direction: row; align-items: flex-end; justify-content: space-between; } }
 
-/* Topics Grid */
+
 .psi-topics-grid { display: grid; grid-template-columns: 1fr; }
 @media (min-width: 768px) { .psi-topics-grid { grid-template-columns: 1fr 1fr; column-gap: 64px; } }
 
-/* Principles Grid */
+
 .psi-principles-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
 @media (min-width: 768px) { .psi-principles-grid { grid-template-columns: 1fr 1fr 1fr; gap: 32px; } }
 
-/* Formats Grid */
 .psi-formats-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
 @media (min-width: 768px) {
   .psi-formats-grid { grid-template-columns: 1fr 1fr; gap: 0; }
@@ -176,23 +169,23 @@
   .psi-format-right { padding-left: 48px; }
 }
 
-/* Steps Grid */
+
 .psi-steps-grid { display: grid; grid-template-columns: 1fr; }
 @media (min-width: 768px) { .psi-steps-grid { grid-template-columns: 1fr 1fr 1fr; column-gap: 48px; } }
 
-/* CTA Grid */
+
 .psi-cta-grid { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center; }
 @media (min-width: 768px) { .psi-cta-grid { grid-template-columns: 1.2fr 1fr; } }
 
-/* Footer Grid */
+
 .psi-footer-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
 @media (min-width: 768px) { .psi-footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; } }
 
-/* Footer Bottom */
+
 .psi-footer-bottom { display: flex; flex-direction: column; gap: 8px; align-items: center; }
 @media (min-width: 768px) { .psi-footer-bottom { flex-direction: row; justify-content: space-between; } }
 
-/* Hero Specific Layouts */
+
 .psi-hero-layout { display: grid; grid-template-columns: 1fr; gap: 48px; padding-top: 48px; }
 @media (min-width: 1024px) {
   .psi-hero-layout { grid-template-columns: 1fr 480px; gap: 0; padding-top: 0; align-items: center; }

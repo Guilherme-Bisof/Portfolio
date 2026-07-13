@@ -1,0 +1,143 @@
+/* ================================================
+   BARBERSHOP DEMO — DESIGN SYSTEM
+   ================================================ */
+
+.barbearia-demo {
+  --bb-bg-cream: #F6F4F0;
+  --bb-bg-charcoal: #1F2123;
+  --bb-bg-elevated: #2A2D30;
+  --bb-bg-card: #FFFFFF;
+  --bb-copper: #C26B4A;
+  --bb-copper-hover: #A85A3D;
+  --bb-text-dark: #1F2123;
+  --bb-text-muted-dark: #63666A;
+  --bb-text-light: #F6F4F0;
+  --bb-text-muted-light: #8A8D91;
+  --bb-border-light: #E8E5DF;
+  --bb-border-dark: #373A3E;
+
+  background-color: var(--bb-bg-cream);
+  color: var(--bb-text-dark);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- Typography ---- */
+.bb-display {
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.bb-serif-italic {
+  font-family: var(--font-instrument), "Georgia", serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* ---- Focus ---- */
+.barbearia-demo *:focus-visible {
+  outline: 2px solid var(--bb-copper);
+  outline-offset: 3px;
+}
+
+/* ---- Animations ---- */
+.bb-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
+}
+.bb-reveal.bb-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bb-image-reveal {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.9s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: clip-path;
+}
+.bb-image-reveal img {
+  transform: scale(1.03);
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.bb-image-reveal.bb-visible {
+  clip-path: inset(0 0 0 0);
+}
+.bb-image-reveal.bb-visible img {
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .barbearia-demo *, .barbearia-demo *::before, .barbearia-demo *::after, .bb-reveal, .bb-image-reveal {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
+
+/* ---- Buttons ---- */
+.bb-btn-primary {
+  display: inline-flex; align-items: center; justify-content: center;
+  background-color: var(--bb-copper); color: #fff;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;
+  padding: 16px 32px; border: none; border-radius: 2px;
+  cursor: pointer; transition: background-color 0.25s ease, transform 0.15s ease;
+  text-decoration: none; min-height: 52px;
+}
+.bb-btn-primary:hover, .bb-btn-primary:focus-visible { background-color: var(--bb-copper-hover); }
+.bb-btn-primary:active { transform: scale(0.98); }
+
+.bb-btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center;
+  background-color: transparent; color: var(--bb-text-light);
+  border: 1px solid var(--bb-border-dark);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;
+  padding: 16px 32px; border-radius: 2px;
+  cursor: pointer; transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  text-decoration: none; min-height: 52px;
+}
+.bb-btn-secondary:hover, .bb-btn-secondary:focus-visible { 
+  border-color: var(--bb-text-light); 
+  background-color: rgba(255,255,255,0.05); 
+}
+
+/* ---- Layout Utils ---- */
+.bb-container { max-width: 1200px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
+@media (min-width: 768px) { .bb-container { padding-left: 48px; padding-right: 48px; } }
+
+.bb-section { padding: 80px 0; }
+@media (min-width: 768px) { .bb-section { padding: 128px 0; } }
+
+.bb-eyebrow {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 600; font-size: 12px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--bb-copper);
+}
+
+/* ---- Service Table ---- */
+.bb-service-item {
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 32px 0; border-bottom: 1px solid var(--bb-border-light);
+}
+@media (min-width: 768px) {
+  .bb-service-item { flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 48px; }
+  .bb-service-info { flex: 1; }
+  .bb-service-price { flex-shrink: 0; display: flex; align-items: center; gap: 32px; }
+}
+
+/* ---- FAQ Accordion ---- */
+.bb-faq-details { transition: all 0.3s ease; border-bottom: 1px solid var(--bb-border-light); }
+.bb-faq-details summary { list-style: none; display: flex; justify-content: space-between; align-items: center; padding: 24px 0; cursor: pointer; font-weight: 500; }
+.bb-faq-details summary::-webkit-details-marker { display: none; }
+.bb-faq-details[open] .bb-faq-icon { transform: rotate(45deg); }
+.bb-faq-details[open] summary ~ * { animation: bb-sweep .3s ease-in-out; }
+@keyframes bb-sweep {
+  0%    {opacity: 0; margin-top: -10px}
+  100%  {opacity: 1; margin-top: 0px}
+}
