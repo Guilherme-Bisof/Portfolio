@@ -1,6 +1,5 @@
 import { Roboto_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
 import { AuthProvider } from "@/context/AuthContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -26,9 +25,7 @@ export default function RootLayout({ children }) {
       <body className="bg-black text-slate-300 min-h-screen flex flex-col">
         <LanguageProvider>
           <AuthProvider>
-            <Navbar />
-
-            <main className="flex-grow pt-24 w-full">{children}</main>
+            {children}
           </AuthProvider>
         </LanguageProvider>
       </body>

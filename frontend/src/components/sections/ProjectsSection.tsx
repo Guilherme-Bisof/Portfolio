@@ -1,19 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ProjectCard from "@/components/ui/ProjectCard";
 import ProjectModal from "@/components/ui/ProjectModal";
-import { Project } from "@/types/project";
-import { fallbackProjects } from "@/data/fallbackProjects";
-import axios from "axios";
+import { featuredProjects, FeaturedProject } from "@/data/featuredProjects";
 import { motion, Variants } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 const sectionVariant: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -25,54 +17,21 @@ const sectionVariant: Variants = {
 };
 
 export default function ProjectsSection() {
-  const { t } = useLanguage();
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const { language } = useLanguage();
+  const [selectedProject, setSelectedProject] = useState<FeaturedProject | null>(null);
   const [activeFilter, setActiveFilter] = useState<string>("Todos");
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await axios.get<Project[]>(
-          `${process.env.NEXT_PUBLIC_API_URL}/projects`,
-        );
-        if (response.data && response.data.length > 0) {
-          const enrichedData = response.data.map(p => {
-            const fallbackP = fallbackProjects.find(fp => fp.id === p.id);
-            if (!fallbackP) return p;
-            return {
-              ...p,
-              titleEn: p.titleEn || fallbackP.titleEn,
-              descriptionEn: p.descriptionEn || fallbackP.descriptionEn,
-              challengeEn: p.challengeEn || fallbackP.challengeEn,
-              solutionEn: p.solutionEn || fallbackP.solutionEn,
-              learnedEn: p.learnedEn || fallbackP.learnedEn,
-            };
-          });
-          setProjects(enrichedData);
-        } else {
-          // Se a API retornar sucesso, mas vazio (sem dados), usa o fallback também (opcional)
-          setProjects(fallbackProjects);
-        }
-      } catch (error) {
-        console.error("Erro ao buscar projetos, usando fallback local:", error);
-        setProjects(fallbackProjects);
-      }
-    };
-    fetchProjects();
-  }, []);
 
   const categories = [
     "Todos",
-    ...Array.from(
-      new Set(projects.map((p) => p.type).filter(Boolean) as string[]),
-    ),
+    "Sites e landing pages",
+    "Sistemas web",
+    "Aplicações desktop"
   ];
 
   const filteredProjects =
     activeFilter === "Todos"
-      ? projects
-      : projects.filter((project) => project.type === activeFilter);
+      ? featuredProjects
+      : featuredProjects.filter((project) => project.categoryFilter === activeFilter);
 
   return (
     <>
@@ -80,7 +39,7 @@ export default function ProjectsSection() {
         id="projetos"
         className="flex flex-col py-32 bg-[#0a0a0a] text-white overflow-hidden"
       >
-        <div className="w-full max-w-5xl mx-auto px-6 md:px-12">
+        <div className="w-full max-w-6xl mx-auto px-6 md:px-12">
           {/* Título*/}
           <motion.div
             initial="hidden"
@@ -89,75 +48,98 @@ export default function ProjectsSection() {
             variants={sectionVariant}
             className="mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-2">
-              {t("projects.title")}
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+              {language === "en" ? "Featured Projects." : "Projetos em destaque."}
             </h2>
-            <p className="text-neutral-400 font-light text-lg mb-8">
-              {t("projects.subtitle")}
+            <p className="text-neutral-400 font-light text-lg mb-10 max-w-2xl">
+              {language === "en"
+                ? "A selection of landing pages, platforms, and systems I developed to transform real ideas and processes into functional digital experiences."
+                : "Uma seleção de landing pages, plataformas e sistemas que desenvolvi para transformar ideias e processos reais em experiências digitais funcionais."}
             </p>
 
             {/* Filtros */}
-            {projects.length > 0 && (
-              <div className="flex flex-wrap gap-6">
-                {categories.map((category) => {
-                  const isSelected = activeFilter === category;
-                  const buttonClass = isSelected
-                    ? "text-white border-b border-white pb-1 text-sm font-medium transition-colors"
-                    : "text-neutral-500 hover:text-neutral-300 pb-1 text-sm font-medium transition-colors cursor-pointer";
+            <div className="flex flex-wrap gap-6 mb-8">
+              {categories.map((category) => {
+                const isSelected = activeFilter === category;
+                const buttonClass = isSelected
+                  ? "text-white border-b border-white pb-1 text-sm font-medium transition-colors"
+                  : "text-neutral-500 hover:text-neutral-300 pb-1 text-sm font-medium transition-colors cursor-pointer";
 
-                  const displayCategory = category === "Todos" ? t("projects.filterAll") : category;
+                let displayCategory = category;
+                if (language === "en") {
+                  if (category === "Todos") displayCategory = "All";
+                  if (category === "Sites e landing pages") displayCategory = "Sites & Landing Pages";
+                  if (category === "Sistemas web") displayCategory = "Web Systems";
+                  if (category === "Aplicações desktop") displayCategory = "Desktop Apps";
+                }
 
-                  return (
-                    <button
-                      key={category}
-                      onClick={() => setActiveFilter(category)}
-                      className={buttonClass}
-                    >
-                      {displayCategory}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
+                return (
+                  <button
+                    key={category}
+                    onClick={() => setActiveFilter(category)}
+                    className={buttonClass}
+                  >
+                    {displayCategory}
+                  </button>
+                );
+              })}
+            </div>
           </motion.div>
 
-          {/* Grid/Carrossel de Projetos */}
+          {/* Grid de Projetos */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={sectionVariant}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-32"
           >
-            {filteredProjects.length > 0 ? (
-              <Swiper
-                modules={[Navigation, Pagination]}
-                spaceBetween={24}
-                slidesPerView={1.1}
-                breakpoints={{
-                  768: { slidesPerView: 2.2 },
-                  1024: { slidesPerView: 2.5 },
-                }}
-                className="pb-12"
-              >
-                {filteredProjects.map((project) => (
-                  <SwiperSlide key={project.id} className="!h-auto flex">
-                    <div className="w-full h-full flex flex-col">
-                      <ProjectCard
-                        project={project}
-                        onClick={() => setSelectedProject(project)}
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            ) : (
+            {filteredProjects.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                onClick={() => setSelectedProject(project)}
+              />
+            ))}
+            {filteredProjects.length === 0 && (
               <p className="text-neutral-500 py-12 font-mono text-sm">
-                {projects.length === 0
-                  ? t("projects.loading")
-                  : t("projects.empty")}
+                Nenhum projeto encontrado.
               </p>
             )}
           </motion.div>
+
+          {/* Bloco Comercial */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={sectionVariant}
+            className="bg-[#111111] border border-neutral-800 rounded-3xl p-8 md:p-12 text-center max-w-4xl mx-auto"
+          >
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              {language === "en" ? "Need something similar for your business?" : "Precisa de algo parecido para sua empresa?"}
+            </h3>
+            <p className="text-neutral-400 text-lg mb-8 max-w-2xl mx-auto">
+              {language === "en"
+                ? "I develop landing pages, institutional websites, and custom systems, from organizing the idea to publishing."
+                : "Desenvolvo landing pages, sites institucionais e sistemas sob medida, desde a organização da ideia até a publicação."}
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <a 
+                href="#contato"
+                className="w-full sm:w-auto bg-white text-black font-semibold py-4 px-8 rounded-lg hover:bg-neutral-200 transition-colors"
+              >
+                {language === "en" ? "Request a Quote" : "Solicitar orçamento"}
+              </a>
+              <a 
+                href="#servicos"
+                className="w-full sm:w-auto bg-transparent border border-neutral-700 text-white font-semibold py-4 px-8 rounded-lg hover:border-neutral-500 transition-colors"
+              >
+                {language === "en" ? "View Services" : "Conhecer os serviços"}
+              </a>
+            </div>
+          </motion.div>
+
         </div>
       </section>
 
