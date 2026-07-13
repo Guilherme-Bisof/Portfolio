@@ -21,8 +21,8 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR">
-      <body className="bg-black text-slate-300 min-h-screen flex flex-col">
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body className="bg-black text-slate-300 min-h-screen flex flex-col" suppressHydrationWarning>
         <LanguageProvider>
           <AuthProvider>
             {children}

@@ -26,10 +26,10 @@ export default function DemoBanner({ demoName }: DemoBannerProps) {
           </span>
         </div>
         
-        <div className="flex gap-3 shrink-0">
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto shrink-0 mt-2 md:mt-0">
           <Link 
             href="/"
-            className="bg-transparent border border-neutral-600 hover:border-neutral-400 text-white font-medium py-1.5 px-4 rounded transition-colors text-xs uppercase tracking-wide"
+            className="w-full sm:w-auto text-center bg-transparent border border-neutral-600 hover:border-neutral-400 text-white font-medium py-2 px-4 rounded transition-colors text-xs uppercase tracking-wide"
           >
             Ver portfólio
           </Link>
@@ -37,7 +37,7 @@ export default function DemoBanner({ demoName }: DemoBannerProps) {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-green-600 hover:bg-green-500 text-white font-medium py-1.5 px-4 rounded transition-colors text-xs uppercase tracking-wide shadow-lg shadow-green-600/20"
+            className="w-full sm:w-auto text-center bg-green-600 hover:bg-green-500 text-white font-medium py-2 px-4 rounded transition-colors text-xs uppercase tracking-wide shadow-lg shadow-green-600/20"
           >
             Solicitar um site parecido
           </a>

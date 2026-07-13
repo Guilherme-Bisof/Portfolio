@@ -43,7 +43,7 @@ export default function DemosSection() {
   ];
 
   return (
-    <section className="py-24 bg-[#111] border-t border-neutral-900 text-white">
+    <section id="demos" className="py-24 bg-[#111] border-t border-neutral-900 text-white">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <motion.div
           initial="hidden"
