@@ -27,6 +27,12 @@
         "description": "• Elaboração de cenário de testes em processos, serviços e soluções digitais;\n• Execução de testes de validação das jornadas de produtos digitais e telecom (Quality Assurance e Customer Experience);\n• Confecção de relatórios, análise de resultados e report para área demandante e para os clientes."
       },
       {
+        "role": "Desenvolvedor Full Stack Freelancer",
+        "company": "R1 Motos",
+        "period": "Dez. 2025",
+        "description": "• Idealizei e desenvolvi uma aplicação desktop para centralizar a gestão financeira e o estoque de uma loja de veículos.\n• Construí o sistema com Electron, Node.js, JavaScript, HTML5 e CSS3, com funcionamento local em Windows.\n• Implementei contas a pagar e a receber, estoque, clientes, imagens, backup e restauração para uso do proprietário e da secretária."
+      },
+      {
         "role": "Estagiário Administrativo",
         "company": "Justiça Restaurativa",
         "period": "Maio 2025 - Set. 2025",
@@ -43,13 +49,22 @@
   "education": {
     "title": "Trajetória.",
     "subtitle": "Formação acadêmica e especializações.",
-    "graduation": {
-      "course": "Análise e Desenvolvimento de Sistemas",
-      "institution": "UniCesumar - Tatuí/SP",
-      "period": "Set. 2025 - Jun. 2028",
-      "description": "Foco em desenvolvimento de sistemas escaláveis e arquitetura de aplicações reais.",
-      "tags": ["Engenharia de Software", "Sistemas", "Projetos Reais"]
-    },
+    "graduations": [
+      {
+        "course": "Análise e Desenvolvimento de Sistemas",
+        "institution": "UniCesumar - Tatuí/SP",
+        "period": "Set. 2025 - Jun. 2028",
+        "description": "Formação voltada ao desenvolvimento de software, análise de sistemas, bancos de dados e construção de aplicações web.",
+        "tags": ["Engenharia de Software", "Banco de Dados", "Engenharia de Software"]
+      },
+      {
+        "course": "Gestão da Tecnologia da Informação",
+        "institution": "Fatec Tatuí - Tatuí/SP",
+        "period": "Ago. 2024 - Jun. 2028",
+        "description": "Formação voltada à gestão de serviços e projetos de TI, infraestrutura, governança e alinhamento entre tecnologia e negócio.",
+        "tags": ["Gestão de TI", "Governança de TI", "Gestão de Projetos"]
+      }
+    ],
     "complementaryTitle": "Especializações Complementares",
     "courses": [
       { "name": "Linux Unhatched", "institution": "Cisco", "year": "2025" },

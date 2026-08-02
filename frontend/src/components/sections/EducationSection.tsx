@@ -29,8 +29,11 @@ const sectionVariant: Variants = {
 
 export default function EducationSection() {
   const { t } = useLanguage();
-  
-  const graduation = t("education.graduation") as Graduation;
+
+  const graduationData = t("education.graduations") as Graduation[] | Graduation;
+  const graduations = Array.isArray(graduationData)
+    ? graduationData
+    : [graduationData];
   const complementaryCourses = t("education.courses") as ComplementaryCourse[];
 
   return (
@@ -52,38 +55,43 @@ export default function EducationSection() {
         </motion.div>
 
         {/* Bloco de Graduação*/}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={sectionVariant}
-          className="mb-20 border-l border-neutral-800 pl-6 md:pl-8"
-        >
-          <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 mb-3">
-            <h3 className="text-2xl font-bold text-white tracking-tight">
-              {graduation.course}
-            </h3>
-            <span className="text-neutral-500 font-mono text-sm uppercase tracking-widest">
-              {graduation.period}
-            </span>
-          </div>
-          <p className="text-lg text-neutral-300 mb-2 font-medium">
-            {graduation.institution}
-          </p>
-          <p className="text-neutral-400 mb-6 font-light leading-relaxed max-w-2xl">
-            {graduation.description}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {graduation.tags?.map((tag) => (
-              <span
-                key={tag}
-                className="border border-neutral-800 text-neutral-500 text-xs px-3 py-1 rounded-full font-medium"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </motion.div>
+        <div className="flex flex-col gap-10">
+          {graduations.map((graduation, index) => (
+            <motion.div
+              key={`${graduation.course}-${index}`}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={sectionVariant}
+              className="border-l border-neutral-800 pl-6 md:pl-8"
+            >
+              <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 mb-3">
+                <h3 className="text-2xl font-bold text-white tracking-tight">
+                  {graduation.course}
+                </h3>
+                <span className="text-neutral-500 font-mono text-sm uppercase tracking-widest">
+                  {graduation.period}
+                </span>
+              </div>
+              <p className="text-lg text-neutral-300 mb-2 font-medium">
+                {graduation.institution}
+              </p>
+              <p className="text-neutral-400 mb-6 font-light leading-relaxed max-w-2xl">
+                {graduation.description}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {graduation.tags?.map((tag, tagIndex) => (
+                  <span
+                    key={`${graduation.course}-${tag}-${tagIndex}`}
+                    className="border border-neutral-800 text-neutral-500 text-xs px-3 py-1 rounded-full font-medium"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
 
         {/* Linha do tempo*/}
         <motion.div
@@ -93,6 +101,7 @@ export default function EducationSection() {
           variants={{
             visible: { transition: { staggerChildren: 0.1 } },
           }}
+          className="mt-20"
         >
           <h3 className="text-xl font-medium tracking-tight mb-8 text-neutral-300">
             {t("education.complementaryTitle")}
