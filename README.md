@@ -1,4 +1,4 @@
-Portfólio — Headless CMS & Showcase Dinâmico
+# Portfólio — Headless CMS & Showcase Dinâmico
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
